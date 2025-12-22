@@ -19,7 +19,18 @@ export default function RootLayout({ children }) {
         <header>
           <Navbar></Navbar>
         </header>
-        <main>{children}</main>
+        <div className=" h-[85px]"></div>
+        <main
+          className="
+  mx-auto
+  max-w-11/12
+  min-h-[calc(100vh-302px)]
+
+"
+        >
+          {children}
+        </main>
+
         <footer>
           <Footer></Footer>
         </footer>

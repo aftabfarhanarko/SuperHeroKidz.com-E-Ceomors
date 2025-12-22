@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "./Logo";
 import NavLink from "../Button/NavLink";
-import MMobileMenu from "../Button/MMobileMenu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +16,7 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   const navLinks = (
     <>
@@ -40,11 +40,12 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 border-b border-base-300 ${
         scrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="   mx-auto
+  max-w-11/12 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
@@ -94,11 +95,36 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <MMobileMenu></MMobileMenu>
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+            >
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
-     
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "max-h-screen opacity-100"
+            : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-lg shadow-lg">
+          <ul className=" flex flex-col gap-5">{navLinks}</ul>
+          <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200">
+            Get Started
+          </button>
+        </div>
+      </div>
     </nav>
   );
 };
