@@ -1,10 +1,15 @@
 import { Bai_Jamjuree } from "next/font/google";
+import localFont from "next/font/local";
+
 import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 
 const BaiJamjuree = Bai_Jamjuree({
   weight: ["400"],
+});
+export const fontBangla = localFont({
+  src: "./../fonts/mayaboti-Italic.ttf",
 });
 
 export const metadata = {
@@ -19,7 +24,7 @@ export default function RootLayout({ children }) {
         <header>
           <Navbar></Navbar>
         </header>
-        <div className=" h-[85px]"></div>
+        <div className=" h-[80px]"></div>
         <main
           className="
   mx-auto
