@@ -5,7 +5,9 @@ import Cards from "../card/Cards";
 const Producats = () => {
   return (
     <div className="">
-      <h1 className="text-4xl font-semibold text-center mb-15">Our <span className="text-primary">Product</span></h1>
+      <h1 className="text-4xl font-semibold text-center mb-15">
+        Our <span className="text-primary">Product</span>
+      </h1>
       <div
         className="grid gap-6
                       grid-cols-1 

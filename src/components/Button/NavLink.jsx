@@ -1,4 +1,29 @@
-// "use client";
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+
+const NavLink = ({ href, children }) => {
+  const path = usePathname();
+  const isActive = path.startsWith(href);
+
+  return (
+    <Link
+      className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 ${
+        isActive
+          ? // Active state: সবসময় এই স্টাইল, hover করলেও একই থাকবে
+            "text-primary bg-orange-50"
+          : // Non-active: শুধু hover করলে active-এর মতো স্টাইল
+            "text-gray-700 hover:text-primary hover:bg-orange-50"
+      }`}
+      href={href}
+    >
+      {children}
+    </Link>
+  );
+};
+
+export default NavLink;
 
 // import Link from "next/link";
 // import { usePathname } from "next/navigation";
@@ -49,25 +74,25 @@
 // };
 
 // export default NavLink;
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React from "react";
+// "use client";
+// import Link from "next/link";
+// import { usePathname } from "next/navigation";
+// import React from "react";
 
-const NavLink = ({ href, children }) => {
-  const path = usePathname();
-  return (
-    <Link
-      className={`${
-        path.startsWith(href)
-          ? "px-4 py-2 font-semibold rounded-lg text-gray-700 hover:text-primary  transition-all duration-200 hover:bg-orange-50"
-          : " px-4 py-2 font-semibold rounded-lg text-gray-700 hover:text-primary  transition-all duration-200 hover:bg-orange-50"
-      }`}
-      href={href}
-    >
-      {children}
-    </Link>
-  );
-};
+// const NavLink = ({ href, children }) => {
+//   const path = usePathname();
+//   return (
+//     <Link
+//       className={`${
+//         path.startsWith(href)
+//           ? "px-4 py-2 font-semibold rounded-lg text-gray-700 hover:text-primary  transition-all duration-200 hover:bg-orange-50"
+//           : " px-4 py-2 font-semibold rounded-lg text-gray-700 hover:text-primary  transition-all duration-200 hover:bg-orange-50"
+//       }`}
+//       href={href}
+//     >
+//       {children}
+//     </Link>
+//   );
+// };
 
-export default NavLink;
+// export default NavLink;
