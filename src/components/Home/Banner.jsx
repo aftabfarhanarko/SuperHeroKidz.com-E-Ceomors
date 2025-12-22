@@ -4,7 +4,7 @@ const Banner = () => {
 
   return (
     <section className="w-full bg-gradient-to-r from-pink-50 to-blue-50">
-      <div className="container mx-auto px-6 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+      <div className="max-w-11/12 mx-auto container mx-auto px-6 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-10">
         {/* Text Content */}
         <div className="max-w-2xl text-center md:text-left">
           <h1 className={`${fontBangla.className} text-3xl md:text-5xl font-bold text-gray-900 leading-tight`}>
