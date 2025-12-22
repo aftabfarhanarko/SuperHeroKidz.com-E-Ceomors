@@ -1,61 +1,75 @@
-import React from 'react';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
+import React from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
   Youtube,
   Send,
   Heart,
-  ChevronRight
-} from 'lucide-react';
+  ChevronRight,
+} from "lucide-react";
+import Logo from "./Logo";
 
 const Footer = () => {
   const quickLinks = [
-    { name: 'About Us', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact', href: '#contact' }
+    { name: "About Us", href: "#about" },
+    { name: "Services", href: "#services" },
+    { name: "Portfolio", href: "#portfolio" },
+    { name: "Blog", href: "#blog" },
+    { name: "Contact", href: "#contact" },
   ];
 
   const services = [
-    { name: 'Web Development', href: '#' },
-    { name: 'App Development', href: '#' },
-    { name: 'UI/UX Design', href: '#' },
-    { name: 'Digital Marketing', href: '#' },
-    { name: 'SEO Services', href: '#' }
+    { name: "Web Development", href: "#" },
+    { name: "App Development", href: "#" },
+    { name: "UI/UX Design", href: "#" },
+    { name: "Digital Marketing", href: "#" },
+    { name: "SEO Services", href: "#" },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook', color: 'hover:bg-blue-600' },
-    { icon: Twitter, href: '#', label: 'Twitter', color: 'hover:bg-sky-500' },
-    { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:bg-pink-600' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:bg-blue-700' },
-    { icon: Youtube, href: '#', label: 'YouTube', color: 'hover:bg-red-600' }
+    {
+      icon: Facebook,
+      href: "#",
+      label: "Facebook",
+      color: "hover:bg-blue-600",
+    },
+    { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-sky-500" },
+    {
+      icon: Instagram,
+      href: "#",
+      label: "Instagram",
+      color: "hover:bg-pink-600",
+    },
+    {
+      icon: Linkedin,
+      href: "#",
+      label: "LinkedIn",
+      color: "hover:bg-blue-700",
+    },
+    { icon: Youtube, href: "#", label: "YouTube", color: "hover:bg-red-600" },
   ];
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300">
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="w-11/12 mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">L</span>
-              </div>
-              <span className="text-2xl font-bold text-white">Logo</span>
+            <div className="flex-shrink-0">
+              <Logo></Logo>
             </div>
+
             <p className="text-gray-400 text-sm leading-relaxed">
-              We create beautiful and functional digital experiences that help businesses grow and succeed in the digital world.
+              We create beautiful and functional digital experiences that help
+              businesses grow and succeed in the digital world.
             </p>
-            
+
             {/* Social Links */}
             <div className="flex space-x-3 pt-2">
               {socialLinks.map((social) => (
@@ -73,7 +87,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Quick Links</h3>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Quick Links
+            </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -91,7 +107,9 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Our Services</h3>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Our Services
+            </h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.name}>
@@ -109,11 +127,15 @@ const Footer = () => {
 
           {/* Contact Info & Newsletter */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Get In Touch</h3>
+            <h3 className="text-white font-semibold text-lg mb-4">
+              Get In Touch
+            </h3>
             <ul className="space-y-4 mb-6">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-                <span className="text-gray-400 text-sm">123 Business Street, Dhaka, Bangladesh</span>
+                <span className="text-gray-400 text-sm">
+                  123 Business Street, Dhaka, Bangladesh
+                </span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-blue-400 flex-shrink-0" />
@@ -150,18 +172,24 @@ const Footer = () => {
             <p className="text-gray-400 text-sm text-center md:text-left">
               © 2024 Your Company. All rights reserved.
             </p>
-            
+
             <div className="flex items-center space-x-1 text-gray-400 text-sm">
               <span>Made with</span>
               <Heart className="w-4 h-4 text-red-500 fill-current" />
               <span>in Bangladesh</span>
             </div>
-            
+
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
+              >
                 Privacy Policy
               </a>
-              <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors duration-200">
+              <a
+                href="#"
+                className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
+              >
                 Terms of Service
               </a>
             </div>
