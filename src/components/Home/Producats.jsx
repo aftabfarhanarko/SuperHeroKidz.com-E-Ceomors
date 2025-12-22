@@ -1,8 +1,10 @@
 import React from "react";
-import product from "@/data/toys.json";
+// import product from "@/data/toys.json";
 import Cards from "../card/Cards";
+import { getDataDB } from "@/actions/server/getData";
 
-const Producats = () => {
+const Producats = async () => {
+    const product = (await  getDataDB()) || [] ;
   return (
     <div className="">
       <h1 className="text-4xl font-semibold text-center mb-15">
