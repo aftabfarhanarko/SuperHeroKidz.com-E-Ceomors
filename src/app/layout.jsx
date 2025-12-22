@@ -1,14 +1,10 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bai_Jamjuree } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/layouts/Navbar";
+import Footer from "daisyui/components/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const BaiJamjuree = Bai_Jamjuree({
+  weight: ["400"],
 });
 
 export const metadata = {
@@ -19,10 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${BaiJamjuree.className}  antialiased`}>
+        <header>
+          <Navbar></Navbar>
+        </header>
+        <main>{children}</main>
+        <footer>
+          <Footer></Footer>
+        </footer>
       </body>
     </html>
   );
