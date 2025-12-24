@@ -1,0 +1,364 @@
+import React from 'react';
+import { Calendar, User, Tag, Clock, TrendingUp, Award, Sparkles, ChevronRight, BookOpen, Heart, Share2, MessageCircle } from 'lucide-react';
+import { fontBangla } from '../layout';
+
+const HeroKidzBlog = () => {
+  const featuredPost = {
+    title: 'শিশুদের মানসিক বিকাশে খেলনার ভূমিকা',
+    excerpt: 'খেলনা শুধু বিনোদনের মাধ্যম নয়, এটি শিশুদের শারীরিক ও মানসিক বিকাশের একটি গুরুত্বপূর্ণ হাতিয়ার। গবেষণায় দেখা গেছে যে সঠিক খেলনা শিশুদের সৃজনশীলতা, সমস্যা সমাধান দক্ষতা এবং সামাজিক দক্ষতা বৃদ্ধি করে...',
+    image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=800&h=600&fit=crop',
+    author: 'ডাঃ নাজিয়া রহমান',
+    date: '১৫ ডিসেম্বর, ২০২৪',
+    readTime: '৮ মিনিট',
+    category: 'শিশু বিকাশ',
+    views: '২,৫৪৩',
+    likes: '৪৫৬'
+  };
+
+  const blogPosts = [
+    {
+      title: 'STEM খেলনা: ভবিষ্যৎ প্রজন্মের জন্য শিক্ষামূলক উপহার',
+      excerpt: 'বিজ্ঞান, প্রযুক্তি, ইঞ্জিনিয়ারিং এবং গণিতে শিশুদের আগ্রহ তৈরি করতে STEM খেলনার গুরুত্ব অপরিসীম। এই খেলনাগুলো শিশুদের যুক্তিযুক্ত চিন্তা করতে শেখায়...',
+      image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=400&fit=crop',
+      author: 'প্রফেসর আহমেদ করিম',
+      date: '১২ ডিসেম্বর, ২০২৪',
+      readTime: '৬ মিনিট',
+      category: 'শিক্ষামূলক',
+      views: '১,৮৯২',
+      likes: '৩২৮'
+    },
+    {
+      title: 'বয়স অনুযায়ী সঠিক খেলনা নির্বাচনের গাইড',
+      excerpt: 'প্রতিটি বয়সের শিশুদের জন্য আলাদা ধরনের খেলনা প্রয়োজন। ০-২ বছরের শিশুদের জন্য সেন্সরি খেলনা, ৩-৫ বছরের জন্য ইমাজিনেটিভ খেলনা উপযুক্ত...',
+      image: 'https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=600&h=400&fit=crop',
+      author: 'সাবিহা আক্তার',
+      date: '১০ ডিসেম্বর, ২০২৪',
+      readTime: '৫ মিনিট',
+      category: 'প্যারেন্টিং টিপস',
+      views: '৩,২১৫',
+      likes: '৫৬৭'
+    },
+    {
+      title: 'নিরাপদ খেলনা কীভাবে চিনবেন?',
+      excerpt: 'শিশুদের খেলনা কেনার সময় নিরাপত্তা সবচেয়ে গুরুত্বপূর্ণ বিষয়। বিষমুক্ত প্লাস্টিক, ধারালো প্রান্তহীন ডিজাইন এবং বয়স-উপযোগী খেলনা নির্বাচন করুন...',
+      image: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=600&h=400&fit=crop',
+      author: 'ইঞ্জিনিয়ার রাফি হোসেন',
+      date: '০৮ ডিসেম্বর, ২০২৪',
+      readTime: '৭ মিনিট',
+      category: 'নিরাপত্তা',
+      views: '২,৭৬৮',
+      likes: '৪৯৩'
+    },
+    {
+      title: 'খেলনার মাধ্যমে সৃজনশীলতা বৃদ্ধি',
+      excerpt: 'শিশুদের সৃজনশীল চিন্তাভাবনা উন্নত করতে ওপেন-এন্ডেড খেলনা যেমন ব্লক, আর্ট সেট, এবং বিল্ডিং টয় অত্যন্ত কার্যকর...',
+      image: 'https://images.unsplash.com/photo-1560582571-8a7ee7c67f9b?w=600&h=400&fit=crop',
+      author: 'নুসরাত জাহান',
+      date: '০৫ ডিসেম্বর, ২০২৪',
+      readTime: '৬ মিনিট',
+      category: 'সৃজনশীলতা',
+      views: '১,৬৫৪',
+      likes: '২৯৮'
+    },
+    {
+      title: 'ইলেকট্রনিক vs ট্র্যাডিশনাল খেলনা: কোনটি ভালো?',
+      excerpt: 'আধুনিক ইলেকট্রনিক খেলনা এবং ঐতিহ্যবাহী খেলনা উভয়েরই নিজস্ব সুবিধা রয়েছে। সঠিক ব্যালেন্স বজায় রাখা জরুরি...',
+      image: 'https://images.unsplash.com/photo-1515191107209-c28698631303?w=600&h=400&fit=crop',
+      author: 'তানভীর ইসলাম',
+      date: '০৩ ডিসেম্বর, ২০২৪',
+      readTime: '৯ মিনিট',
+      category: 'তুলনামূলক বিশ্লেষণ',
+      views: '৩,৮৯৪',
+      likes: '৬৭২'
+    },
+    {
+      title: 'বাজেটের মধ্যে মানসম্পন্ন খেলনা কিনুন',
+      excerpt: 'দামি খেলনা মানেই সবসময় ভালো নয়। কম বাজেটেও শিক্ষামূলক এবং টেকসই খেলনা পাওয়া সম্ভব যা শিশুদের বিকাশে সহায়ক...',
+      image: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600&h=400&fit=crop',
+      author: 'ফারহানা খান',
+      date: '০১ ডিসেম্বর, ২০২৪',
+      readTime: '৫ মিনিট',
+      category: 'ক্রয় গাইড',
+      views: '৪,২৩১',
+      likes: '৭৮৯'
+    }
+  ];
+
+  const categories = [
+    { name: 'শিশু বিকাশ', icon: Sparkles, count: 24 },
+    { name: 'শিক্ষামূলক', icon: BookOpen, count: 18 },
+    { name: 'প্যারেন্টিং টিপস', icon: Heart, count: 32 },
+    { name: 'নিরাপত্তা', icon: Award, count: 15 },
+    { name: 'সৃজনশীলতা', icon: TrendingUp, count: 21 },
+    { name: 'ক্রয় গাইড', icon: Tag, count: 12 }
+  ];
+
+  const trendingTopics = [
+    'STEM খেলনা',
+    'মন্টেসরি পদ্ধতি',
+    'শিক্ষামূলক গেম',
+    'নিরাপদ খেলনা',
+    'বয়স-উপযোগী খেলনা',
+    'ক্রিয়েটিভ টয়'
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-orange-400 to-amber-500 text-white py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <Sparkles className="w-8 h-8" />
+            <h1 className={`${fontBangla.className} text-5xl md:text-6xl font-bold`}>হিরো কিডজ ব্লগ</h1>
+          </div>
+          <p className={ ` ${fontBangla.className} text-xl md:text-2xl text-orange-100 max-w-3xl `}>
+            শিশুদের বিকাশ, খেলনা নির্বাচন এবং প্যারেন্টিং টিপস সম্পর্কে সব তথ্য এক জায়গায়
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2">
+            {/* Featured Post */}
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden mb-12 transform hover:scale-[1.02] transition-transform duration-300">
+              <div className="relative h-96 overflow-hidden">
+                <img 
+                  src={featuredPost.image} 
+                  alt={featuredPost.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-orange-400 text-white px-4 py-2 rounded-full font-bold flex items-center gap-2">
+                  <Award className="w-5 h-5" />
+                  ফিচারড পোস্ট
+                </div>
+              </div>
+              <div className="p-8">
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <span className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm font-semibold">
+                    {featuredPost.category}
+                  </span>
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-sm">{featuredPost.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Clock className="w-4 h-4" />
+                    <span className="text-sm">{featuredPost.readTime}</span>
+                  </div>
+                </div>
+                <h2 className={`${fontBangla.className} text-3xl font-bold text-gray-800 mb-4`}>
+                  {featuredPost.title}
+                </h2>
+                <p className={`${fontBangla.className} text-gray-600 text-lg mb-6 leading-relaxed`}>
+                  {featuredPost.excerpt}
+                </p>
+                <div className="flex items-center justify-between border-t border-gray-200 pt-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`${fontBangla.className} w-12 h-12 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full flex items-center justify-center text-white font-bold`}>
+                      {featuredPost.author[0]}
+                    </div>
+                    <div>
+                      <p className={`${fontBangla.className} font-semibold text-gray-800`}>{featuredPost.author}</p>
+                      <p className={`${fontBangla.className} text-sm text-gray-500`}>লেখক</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-1 text-gray-600">
+                      <Heart className="w-5 h-5 text-orange-400" />
+                      <span>{featuredPost.likes}</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-gray-600">
+                      <TrendingUp className="w-5 h-5 text-orange-400" />
+                      <span>{featuredPost.views}</span>
+                    </div>
+                  </div>
+                </div>
+                <button className="w-full mt-6 bg-gradient-to-r from-orange-400 to-amber-400 text-white py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2">
+                  সম্পূর্ণ পড়ুন
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Blog Grid */}
+            <h3 className="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+              <BookOpen className="w-8 h-8 text-orange-400" />
+              সর্বশেষ পোস্ট
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              {blogPosts.map((post, index) => (
+                <div key={index} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3 bg-orange-400 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                      {post.category}
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                      {post.title}
+                    </h4>
+                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {post.date}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {post.readTime}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          {post.author[0]}
+                        </div>
+                        <span className="text-sm font-medium text-gray-700">{post.author}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1 text-gray-600 text-sm">
+                          <Heart className="w-4 h-4 text-orange-400" />
+                          {post.likes}
+                        </div>
+                      </div>
+                    </div>
+                    <button className="w-full mt-4 bg-gradient-to-r from-orange-400 to-amber-400 text-white py-2 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm">
+                      পড়ুন
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Load More Button */}
+            <div className="text-center mt-12">
+              <button className="bg-white text-orange-400 border-2 border-orange-400 px-8 py-3 rounded-full font-bold hover:bg-orange-400 hover:text-white transition-all transform hover:scale-105">
+                আরও পোস্ট লোড করুন
+              </button>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1">
+            {/* Newsletter */}
+            <div className="bg-gradient-to-br from-orange-400 to-amber-400 rounded-3xl p-8 text-white mb-8 shadow-2xl">
+              <div className="flex items-center gap-3 mb-4">
+                <MessageCircle className="w-8 h-8" />
+                <h3 className="text-2xl font-bold">নিউজলেটার</h3>
+              </div>
+              <p className="mb-6 text-orange-100">
+                নতুন পোস্ট এবং প্যারেন্টিং টিপস সরাসরি আপনার ইমেইলে পান
+              </p>
+              <input 
+                type="email" 
+                placeholder="আপনার ইমেইল" 
+                className="w-full px-4 py-3 rounded-full mb-3 text-gray-800 focus:outline-none focus:ring-4 focus:ring-orange-200"
+              />
+              <button className="w-full bg-white text-orange-400 py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all">
+                সাবস্ক্রাইব করুন
+              </button>
+            </div>
+
+            {/* Categories */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg mb-8">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <Tag className="w-6 h-6 text-orange-400" />
+                ক্যাটাগরি
+              </h3>
+              <div className="space-y-3">
+                {categories.map((category, index) => {
+                  const Icon = category.icon;
+                  return (
+                    <button 
+                      key={index}
+                      className="w-full flex items-center justify-between p-4 bg-orange-50 hover:bg-gradient-to-r hover:from-orange-400 hover:to-amber-400 hover:text-white rounded-xl transition-all group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="w-5 h-5 text-orange-400 group-hover:text-white" />
+                        <span className="font-semibold">{category.name}</span>
+                      </div>
+                      <span className="bg-orange-200 group-hover:bg-white group-hover:text-orange-400 text-orange-600 px-3 py-1 rounded-full text-sm font-bold">
+                        {category.count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Trending Topics */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <TrendingUp className="w-6 h-6 text-orange-400" />
+                ট্রেন্ডিং টপিক
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {trendingTopics.map((topic, index) => (
+                  <button 
+                    key={index}
+                    className="px-4 py-2 bg-orange-100 hover:bg-gradient-to-r hover:from-orange-400 hover:to-amber-400 text-orange-600 hover:text-white rounded-full text-sm font-semibold transition-all"
+                  >
+                    #{topic}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Popular Post */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg mt-8">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <Award className="w-6 h-6 text-orange-400" />
+                জনপ্রিয় পোস্ট
+              </h3>
+              <div className="space-y-4">
+                {blogPosts.slice(0, 3).map((post, index) => (
+                  <div key={index} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0 hover:bg-orange-50 p-3 rounded-xl transition-all cursor-pointer">
+                    <img 
+                      src={post.image} 
+                      alt={post.title}
+                      className="w-20 h-20 object-cover rounded-xl"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-800 text-sm line-clamp-2 mb-2">
+                        {post.title}
+                      </h4>
+                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                        <Clock className="w-3 h-3" />
+                        {post.readTime}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer CTA */}
+      <div className="bg-gradient-to-r from-orange-400 to-amber-400 py-16 px-4 mt-16">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-4xl font-bold mb-4">আপনার গল্প শেয়ার করুন</h2>
+          <p className="text-xl text-orange-100 mb-8">
+            আপনার প্যারেন্টিং অভিজ্ঞতা এবং টিপস আমাদের সাথে শেয়ার করুন
+          </p>
+          <button className="bg-white text-orange-400 px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all">
+            লেখা সাবমিট করুন
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HeroKidzBlog;
