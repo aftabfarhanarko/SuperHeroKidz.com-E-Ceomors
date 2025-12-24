@@ -11,7 +11,7 @@ const Producat = async () => {
       <h1 className={`${fontBangla.className} text-4xl font-semibold text-center mb-15`}>
              আমাদের <span className="text-primary">পণ্য </span>
             </h1>
-      <div
+      <divsdsa
         className="grid gap-6
                       grid-cols-1 
                       sm:grid-cols-2 
@@ -23,7 +23,7 @@ const Producat = async () => {
         {product2.map((one) => (
           <Cards one={one} key={one.price} />
         ))}
-      </div>
+      </divsdsa>
     </div>
   );
 };
