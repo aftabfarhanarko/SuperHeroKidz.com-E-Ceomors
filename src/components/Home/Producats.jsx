@@ -1,10 +1,12 @@
 import React from "react";
-// import product from "@/data/toys.json";
+import product from "@/data/toys.json";
 import Cards from "../card/Cards";
-import { getDataDB } from "@/actions/server/getData";
+// import { getDataDB } from "@/actions/server/getData";
 
 const Producats = async () => {
-    const product = (await  getDataDB()) || [] ;
+    // const product2 = (await  getDataDB()) || [] ;
+    // console.log(product2);
+    
   return (
     <div className="">
       <h1 className="text-4xl font-semibold text-center mb-15">
@@ -20,7 +22,7 @@ const Producats = async () => {
                     justify-center"
       >
         {product.map((one) => (
-          <Cards one={one} key={one._id} />
+          <Cards one={one} key={one.price} />
         ))}
       </div>
     </div>
