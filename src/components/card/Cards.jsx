@@ -1,7 +1,11 @@
+// "use client";
+import { fontBangla } from "@/app/layout";
 import { Eye, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+// import React, { useEffect } from "react";
+// import AOS from "aos"; // AOS library নিজে
+// import "aos/dist/aos.css";
 
 const Cards = ({ one }) => {
   const {
@@ -18,9 +22,19 @@ const Cards = ({ one }) => {
 
   const discountedPrice = (price * (100 - percentage)) / 100;
 
+  // useEffect(() => {
+  //   AOS.init({
+  //     duration: 4000, // animation duration (ms) – ইচ্ছামতো change করতে পারো
+  //     once: false,
+  //   });
+  // }, []);
+
   return (
     <>
-      <div className="group relative max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 ease-out border border-gray-100">
+      <div
+        // data-aos="zoom-in"
+        className="group relative max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 ease-out border border-gray-100"
+      >
         {/* Product Image */}
         <div className="relative w-full h-72 overflow-hidden">
           <Image
@@ -70,7 +84,7 @@ const Cards = ({ one }) => {
         <div className="p-3">
           {/* Title */}
           <h2
-            className="text-lg font-semibold text-gray-800 mb-3 line-clamp-2 leading-relaxed"
+            className={` ${fontBangla.className} text-lg font-semibold text-gray-800 mb-3 line-clamp-2 leading-relaxed`}
             title={title}
           >
             {bangla}
@@ -104,9 +118,13 @@ const Cards = ({ one }) => {
             <div className="flex items-center gap-2">
               <span className="text-yellow-500">⭐</span>
               <span className="font-medium">{ratings.toFixed(1)}</span>
-              <span className="text-gray-500">({reviews} রিভিউ)</span>
+              <span className={`${fontBangla.className} text-gray-500`}>
+                ({reviews} রিভিউ)
+              </span>
             </div>
-            <div className="font-medium">{sold} বিক্রীত</div>
+            <div className={` ${fontBangla.className} font-medium `}>
+              {sold} বিক্রীত
+            </div>
           </div>
 
           {/* Action Buttons - Always Visible, Premium Style */}
@@ -124,7 +142,7 @@ const Cards = ({ one }) => {
             </button>
 
             {/* View Details */}
-            <Link href={`/product/${_id}`} className="flex-1">
+            <Link href={`/producat/${_id}`} className="flex-1">
               <button
                 className="w-full border border-primary text-primary
       flex items-center justify-center gap-2

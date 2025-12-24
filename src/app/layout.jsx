@@ -27,9 +27,7 @@ export default function RootLayout({ children }) {
         </header>
         <div className=" h-[80px]"></div>
         <main
-          className="min-h-[calc(100vh-302px)]
-
-"
+          className="min-h-[calc(100vh-302px)]"
         >
           {children}
         </main>
