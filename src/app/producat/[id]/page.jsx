@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DetlicesPages = ({params}) => {
+const DetlicesPages = () => {
     return (
         <div>
-            
+            Hello s
         </div>
     );
 };

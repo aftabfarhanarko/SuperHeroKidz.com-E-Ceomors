@@ -44,14 +44,14 @@ const Navbar = () => {
         scrolled ? "bg-white/80 backdrop-blur-lg shadow-lg" : "bg-transparent"
       }`}
     >
-      <div className="   mx-auto
-  max-w-11/12 px-4 sm:px-6 lg:px-8">
+      <div
+        className="   mx-auto
+  max-w-11/12 px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="#" className="">
-              <Logo></Logo>
-            </a>
+            <Logo></Logo>
           </div>
 
           {/* Desktop Navigation */}

@@ -5,7 +5,8 @@ import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 
-const BaiJamjuree = Bai_Jamjuree({
+const baiJamjuree = Bai_Jamjuree({
+  subsets: ["latin"],
   weight: ["400"],
 });
 export const fontBangla = localFont({
@@ -20,15 +21,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${BaiJamjuree.className}  antialiased`}>
+      <body className={`${baiJamjuree.className}  antialiased`}>
         <header>
           <Navbar></Navbar>
         </header>
         <div className=" h-[80px]"></div>
         <main
-          className="
-
-  min-h-[calc(100vh-302px)]
+          className="min-h-[calc(100vh-302px)]
 
 "
         >
