@@ -33,7 +33,7 @@ const Navbar = () => {
         <NavLink href={"/contact"}>Contact</NavLink>
       </li>
       <li>
-        <NavLink href={"/books"}>Book</NavLink>
+        <NavLink href={"/book"}>Book</NavLink>
       </li>
     </>
   );
