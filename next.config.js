@@ -8,6 +8,7 @@ const nextConfig = {
       },
     ],
   },
+  // webpack: ,
   reactCompiler: true,
 };
 
