@@ -12,7 +12,7 @@ const NavLink = ({ href, children }) => {
       className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 ${
         isActive
           ? // Active state: সবসময় এই স্টাইল, hover করলেও একই থাকবে
-            "text-primary bg-orange-50"
+            "text-primary "
           : // Non-active: শুধু hover করলে active-এর মতো স্টাইল
             "text-gray-700 hover:text-primary hover:bg-orange-50"
       }`}

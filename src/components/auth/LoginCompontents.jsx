@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { signIn } from "next-auth/react";
+
 import {
   Mail,
   Lock,
@@ -16,18 +18,19 @@ import Image from "next/image";
 
 const LoginCompontents = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const {
     register,
-    handleSubmit, // এটা আলাদা করে নিতে হবে
+    handleSubmit,
     formState: { errors },
   } = useForm();
 
-  // সঠিকভাবে onSubmit এ handleSubmit ব্যবহার করতে হবে
-  const loginUser = (data) => {
-    console.log("লগইন ডাটা:", data);
-    // এখানে তোমার API কল বা লগইন লজিক লিখবে
-    // উদাহরণ: fetch('/api/login', { method: 'POST', body: JSON.stringify(data) })
+  const loginUser = async (data) => {
+    const result = await signIn("credentials", {
+      email: data?.email,
+      password: data?.password,
+      redirect: false,
+    });
+    console.log("লগইন ডাটা:", result);
   };
 
   return (

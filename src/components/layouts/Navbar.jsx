@@ -155,9 +155,44 @@ const Navbar = () => {
       >
         <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-lg shadow-lg">
           <ul className=" flex flex-col gap-5">{navLinks}</ul>
-          <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200">
+          {/* <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200">
             Get Started
-          </button>
+          </button> */}
+          <div className="flex flex-col gap-4 items-left max-w-[140px]">
+            {/* Login Button */}
+            <Link
+              href="/login"
+              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+              aria-label="Login"
+            >
+              <UserRoundCheck className="w-5 h-5" />
+              Login
+            </Link>
+
+            {/* Register Button */}
+            <Link
+              href="/register"
+              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+              aria-label="Register"
+            >
+              <UserPlus className="w-5 h-5" />
+              Register
+            </Link>
+
+            {/* Logout Button */}
+            <button
+              type="button"
+              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+              aria-label="Logout"
+              onClick={() => {
+                // Your logout logic here
+                console.log("Logout clicked");
+              }}
+            >
+              <LogOutIcon className="w-5 h-5" />
+              Logout
+            </button>
+          </div>
         </div>
       </div>
     </nav>

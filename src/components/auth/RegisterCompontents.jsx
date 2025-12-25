@@ -51,7 +51,7 @@ const RegisterComponents = () => {
     // console.log(result);
 
     if (result.insertedId) {
-      toast.success("রেজিস্ট্রেশন সফল হয়েছে!");
+      toast.success(`রেজিস্ট্রেশন সফল হয়েছে! ${result.insertedId}`);
       router.push("/login");
     }
   };
