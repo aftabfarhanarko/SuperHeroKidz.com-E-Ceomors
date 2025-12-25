@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import Logo from "./Logo";
 import NavLink from "../Button/NavLink";
-import LoginForm from "../auth/Login";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -24,10 +23,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handelLogin = () => {
-    <LoginForm></LoginForm>;
-  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
