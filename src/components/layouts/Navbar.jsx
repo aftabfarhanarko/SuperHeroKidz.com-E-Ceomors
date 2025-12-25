@@ -1,8 +1,17 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import {
+  LogInIcon,
+  LogOutIcon,
+  Menu,
+  UserPlus,
+  UserRoundCheck,
+  X,
+} from "lucide-react";
 import Logo from "./Logo";
 import NavLink from "../Button/NavLink";
+import LoginForm from "../auth/Login";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +24,10 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handelLogin = () => {
+    <LoginForm></LoginForm>;
+  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -84,14 +97,41 @@ const Navbar = () => {
             </button>
 
             {/* Login Button */}
-            <button className="px-5 py-2 text-gray-700 font-semibold hover:text-blue-600 transition-colors duration-200">
-              Login
-            </button>
+            <div className="flex gap-4 items-center">
+              {/* Login Button */}
+              <Link
+                href="/login"
+                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+                aria-label="Login"
+              >
+                <UserRoundCheck className="w-5 h-5" />
+                Login
+              </Link>
 
-            {/* Register Button */}
-            <button className="px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-200">
-              Register
-            </button>
+              {/* Register Button */}
+              <Link
+                href="/register"
+                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+                aria-label="Register"
+              >
+                <UserPlus className="w-5 h-5" />
+                Register
+              </Link>
+
+              {/* Logout Button */}
+              <button
+                type="button"
+                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+                aria-label="Logout"
+                onClick={() => {
+                  // Your logout logic here
+                  console.log("Logout clicked");
+                }}
+              >
+                <LogOutIcon className="w-5 h-5" />
+                Logout
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
