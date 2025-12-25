@@ -20,6 +20,7 @@ import Image from "next/image";
 import { postUser } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { uploadToImgBB } from "@/lib/imagesUpBB";
 
 const RegisterComponents = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,16 +34,22 @@ const RegisterComponents = () => {
   } = useForm();
 
   const registerData = async (data) => {
-    console.log("রেজিস্টার ডাটা:", data);
+    // console.log("রেজিস্টার ডাটা:", data);
+    const imagesa = data.image;
+    const newImages = await uploadToImgBB(imagesa);
+    // console.log(newImages);
+
     const user = {
       name: data.name,
       email: data.email,
       password: data.password,
       address: data.address,
-      image: data.image, // File object directly
+      image: newImages.url, // File object directly
       phone: data.phone,
     };
     const result = await postUser(user);
+    // console.log(result);
+
     if (result.insertedId) {
       toast.success("রেজিস্ট্রেশন সফল হয়েছে!");
       router.push("/login");
@@ -116,8 +123,8 @@ const RegisterComponents = () => {
                         const file = e.target.files?.[0];
                         if (file) {
                           const reader = new FileReader();
-                          console.log(file);
-                          
+                          //   console.log(file);
+
                           reader.onloadend = () => {
                             setPreviewImage(reader.result);
                             field.onChange(file); // Send actual File object to server
@@ -268,7 +275,11 @@ const RegisterComponents = () => {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-400"
               >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                {showPassword ? (
+                  <EyeOff className="w-5 h-5" />
+                ) : (
+                  <Eye className="w-5 h-5" />
+                )}
               </button>
             </div>
             {errors.password && (
@@ -327,7 +338,10 @@ const RegisterComponents = () => {
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             ইতিমধ্যে অ্যাকাউন্ট আছে?{" "}
-            <Link href={"/login"} className="text-orange-400 font-semibold hover:underline">
+            <Link
+              href={"/login"}
+              className="text-orange-400 font-semibold hover:underline"
+            >
               লগইন করুন
             </Link>
           </p>
