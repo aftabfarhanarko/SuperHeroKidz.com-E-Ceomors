@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
+import { Toaster } from "sonner";
 
 const baiJamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -105,7 +106,9 @@ export default function RootLayout({ children }) {
           <Navbar></Navbar>
         </header>
         <div className=" h-[80px]"></div>
-        <main className="min-h-[calc(100vh-302px)]">{children}</main>
+        <main className="min-h-[calc(100vh-302px)]">{children}
+          <Toaster position="top-right" />
+        </main>
 
         <footer>
           <Footer></Footer>

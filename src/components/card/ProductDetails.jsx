@@ -11,12 +11,17 @@ import {
   Shield,
   RotateCcw,
 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 // import { fontBangla } from '@/app/layout';
 
 const ProductDetails = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const [isWishlisted, setIsWishlisted] = useState(false);
+  const users = false;
+  const router = useRouter();
+  const path = usePathname();
 
   const discountedPrice =
     product.price - (product.price * product.discount) / 100;
@@ -27,6 +32,16 @@ const ProductDetails = ({ product }) => {
     } else if (type === "decrement" && quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  // Add to card now
+  const producatAddCard = (data) => {
+    if (users) {
+      return toast.success(data._id);
+    } else {
+      return router.push(`/login?callbackUrl=${path}`);
+    }
+    // console.log("This Producat Add  Card Now", data);
   };
 
   return (
@@ -137,12 +152,14 @@ const ProductDetails = ({ product }) => {
                       <Plus className="w-5 h-5" />
                     </button>
                   </div>
-
-                  <button className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2">
+                  <button
+                    onClick={() => producatAddCard(product)}
+                    className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-2 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  >
                     <ShoppingCart className="w-5 h-5" />
                     Add to Cart
                   </button>
-
+                  {/* ADd card Buttons  */}
                   <button
                     onClick={() => setIsWishlisted(!isWishlisted)}
                     className={`p-3 rounded-full border-2 transition-all ${

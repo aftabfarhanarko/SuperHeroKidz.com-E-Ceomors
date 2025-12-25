@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { collection, dbConnect } from "@/lib/mopngodb";
 import { ObjectId } from "mongodb";
 
@@ -13,5 +13,5 @@ export const singelProducat = async (id) => {
   }
   const query = { _id: new ObjectId(id) };
   const producat = await dbConnect(collection.PRODUCTS).findOne();
-  return producat || {};
+  return { ...producat, _id: producat._id.toString() } || {};
 };
