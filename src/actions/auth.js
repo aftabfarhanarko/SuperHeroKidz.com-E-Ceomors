@@ -4,7 +4,7 @@ import { collection, dbConnect } from "@/lib/mopngodb";
 
 import bcrypt from "bcryptjs";
 export const postUser = async (payload) => {
-  const { address, email, image, password, phone, name } = payload;
+  const { name, email, password, address, image, phone } = payload;
   // check payload
   if (!email || !password) return null;
 
