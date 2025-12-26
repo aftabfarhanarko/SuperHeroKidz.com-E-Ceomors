@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/layouts/Navbar";
 import Footer from "@/components/layouts/Footer";
 import { Toaster } from "sonner";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 
 const baiJamjuree = Bai_Jamjuree({
   subsets: ["latin"],
@@ -14,7 +15,9 @@ export const fontBangla = localFont({
   src: "./../fonts/mayaboti-Italic.ttf",
 });
 export const metadata = {
-  metadataBase: new URL("https://hero-kidz-o0js8sd65-aftab-farhans-projects.vercel.app"),
+  metadataBase: new URL(
+    "https://hero-kidz-o0js8sd65-aftab-farhans-projects.vercel.app"
+  ),
 
   applicationName: "Hero Kidz",
 
@@ -100,20 +103,23 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${baiJamjuree.className}  antialiased`}>
-        <header>
-          <Navbar></Navbar>
-        </header>
-        <div className=" h-[80px]"></div>
-        <main className="min-h-[calc(100vh-302px)]">{children}
-          <Toaster position="top-right" />
-        </main>
+    <NextAuthProvider>
+      <html lang="en">
+        <body className={`${baiJamjuree.className}  antialiased`}>
+          <header>
+            <Navbar></Navbar>
+          </header>
+          <div className=" h-[80px]"></div>
+          <main className="min-h-[calc(100vh-302px)]">
+            {children}
+            <Toaster position="top-right" />
+          </main>
 
-        <footer>
-          <Footer></Footer>
-        </footer>
-      </body>
-    </html>
+          <footer>
+            <Footer></Footer>
+          </footer>
+        </body>
+      </html>
+    </NextAuthProvider>
   );
 }

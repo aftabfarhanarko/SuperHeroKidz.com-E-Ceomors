@@ -3,7 +3,7 @@ const dbname = process.env.MONGODBNAME;
 const password = process.env.MONGODBPASSWORD;
 export const collection = {
   PRODUCTS: "products",
-  USERS: "users"
+  USERS: "users",
 };
 const { MongoClient, ServerApiVersion } = require("mongodb");
 

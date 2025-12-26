@@ -31,6 +31,7 @@ export async function uploadToImgBB(file) {
     }
   } catch (error) {
     return {
+      message:"Not Updeat Your Images",
       success: false,
       error: error.message,
     };

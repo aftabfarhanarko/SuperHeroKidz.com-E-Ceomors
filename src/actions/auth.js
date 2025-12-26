@@ -10,10 +10,16 @@ export const postUser = async (payload) => {
 
   // check User
 
+  // ইমেইল আগে থেকে আছে কি না চেক করা
   const isExgised = await dbConnect(collection.USERS).findOne({ email });
   if (isExgised) {
-    return null;
+    return {
+      success: false,
+      message:
+        "এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্টার করা আছে। লগইন করুন অথবা অন্য একটি ইমেইল ব্যবহার করুন।",
+    };
   }
+
   // creat User
   const addUser = {
     provider: "credentials",

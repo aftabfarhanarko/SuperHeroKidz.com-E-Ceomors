@@ -15,9 +15,12 @@ import {
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const LoginCompontents = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -30,7 +33,13 @@ const LoginCompontents = () => {
       password: data?.password,
       redirect: false,
     });
-    console.log("লগইন ডাটা:", result);
+    console.log("Error Result", result);
+    if (!result.ok) {
+      toast.warning(`আপনার পাসওয়ার্ড বা ইমেইল ভুল হয়েছে ? ${result.error}`);
+    } else {
+      toast.success(`${result.message}`);
+      router.push("/");
+    }
   };
 
   return (
@@ -114,19 +123,9 @@ const LoginCompontents = () => {
 
           {/* Remember & Forgot */}
           <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                className="w-4 h-4 rounded border-gray-300 text-orange-400 focus:ring-orange-400"
-              />
-              <span className="text-gray-600">মনে রাখুন</span>
-            </label>
-            <a
-              href="#"
-              className="text-orange-400 hover:text-orange-500 font-semibold"
-            >
+            <p className="text-orange-400 cursor-pointer hover:underline  hover:text-orange-500 font-semibold">
               পাসওয়ার্ড ভুলে গেছেন?
-            </a>
+            </p>
           </div>
 
           {/* Submit Button - Enhanced Primary */}

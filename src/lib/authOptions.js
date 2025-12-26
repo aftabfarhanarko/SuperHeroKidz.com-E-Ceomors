@@ -1,4 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import { collection, dbConnect } from "./mopngodb";
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -6,13 +8,34 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: { label: "email", type: "text", placeholder: "write your email" },
+        email: {
+          label: "email",
+          type: "text",
+          placeholder: "write your email",
+        },
         password: { label: "password", type: "password" },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
+        if (!credentials?.email || !credentials?.password) {
+          return { message: "ইমেইল এবং পাসওয়ার্ড উভয়ই দিতে হবে।" };
+        }
+        
+        const { email, password } = credentials;
+        try {
+          const result = await dbConnect(collection.USERS).findOne({ email });
+          const isPasswordValid = await bcrypt.compare(
+            password,
+            result.password
+          );
+          // return result;
+          if (!isPasswordValid) {
+            return { message: "পাসওয়ার্ড ভুল হয়েছে। আবার চেষ্টা করুন।।" };
+          }
 
-        return null;
+          return { message: " সফল হলে  লগইন হয়েছে।" };
+        } catch (error) {
+          return null;
+        }
       },
     }),
   ], // ...add more providers here],

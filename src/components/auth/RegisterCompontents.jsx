@@ -48,11 +48,13 @@ const RegisterComponents = () => {
       phone: data.phone,
     };
     const result = await postUser(user);
-    // console.log(result);
+    console.log(result);
 
     if (result.insertedId) {
       toast.success(`রেজিস্ট্রেশন সফল হয়েছে! ${result.insertedId}`);
       router.push("/login");
+    } else {
+      toast.warning(`${result.message}`);
     }
   };
 

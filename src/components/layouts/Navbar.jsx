@@ -11,6 +11,7 @@ import {
 import Logo from "./Logo";
 import NavLink from "../Button/NavLink";
 import Link from "next/link";
+import AuthButtons from "../Button/AuthButtons";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -93,39 +94,7 @@ const Navbar = () => {
 
             {/* Login Button */}
             <div className="flex gap-4 items-center">
-              {/* Login Button */}
-              <Link
-                href="/login"
-                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-                aria-label="Login"
-              >
-                <UserRoundCheck className="w-5 h-5" />
-                Login
-              </Link>
-
-              {/* Register Button */}
-              <Link
-                href="/register"
-                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-                aria-label="Register"
-              >
-                <UserPlus className="w-5 h-5" />
-                Register
-              </Link>
-
-              {/* Logout Button */}
-              <button
-                type="button"
-                className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-                aria-label="Logout"
-                onClick={() => {
-                  // Your logout logic here
-                  console.log("Logout clicked");
-                }}
-              >
-                <LogOutIcon className="w-5 h-5" />
-                Logout
-              </button>
+              <AuthButtons />
             </div>
           </div>
 
@@ -158,40 +127,8 @@ const Navbar = () => {
           {/* <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200">
             Get Started
           </button> */}
-          <div className="flex flex-col gap-4 items-left max-w-[140px]">
-            {/* Login Button */}
-            <Link
-              href="/login"
-              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-              aria-label="Login"
-            >
-              <UserRoundCheck className="w-5 h-5" />
-              Login
-            </Link>
-
-            {/* Register Button */}
-            <Link
-              href="/register"
-              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-              aria-label="Register"
-            >
-              <UserPlus className="w-5 h-5" />
-              Register
-            </Link>
-
-            {/* Logout Button */}
-            <button
-              type="button"
-              className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
-              aria-label="Logout"
-              onClick={() => {
-                // Your logout logic here
-                console.log("Logout clicked");
-              }}
-            >
-              <LogOutIcon className="w-5 h-5" />
-              Logout
-            </button>
+          <div className="flex flex-col mb-5   items-left max-w-[140px]">
+            <AuthButtons />
           </div>
         </div>
       </div>
