@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React from "react";
 
 const ProductDetailsSkeleton = () => {
   return (
@@ -27,7 +28,10 @@ const ProductDetailsSkeleton = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
-                      <div key={i} className="w-5 h-5 bg-orange-200 rounded"></div>
+                      <div
+                        key={i}
+                        className="w-5 h-5 bg-orange-200 rounded"
+                      ></div>
                     ))}
                     <div className="ml-2 w-8 h-6 bg-orange-200 rounded"></div>
                   </div>
@@ -68,7 +72,10 @@ const ProductDetailsSkeleton = () => {
                 {/* Delivery Info Skeleton */}
                 <div className="grid grid-cols-3 gap-4">
                   {[...Array(3)].map((_, index) => (
-                    <div key={index} className="flex flex-col items-center text-center p-4 bg-orange-50 rounded-xl">
+                    <div
+                      key={index}
+                      className="flex flex-col items-center text-center p-4 bg-orange-50 rounded-xl"
+                    >
                       <div className="w-8 h-8 bg-orange-200 rounded-full mb-2"></div>
                       <div className="w-20 h-4 bg-orange-200 rounded"></div>
                     </div>
@@ -83,10 +90,7 @@ const ProductDetailsSkeleton = () => {
         <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
           <div className="flex border-b border-gray-200">
             {[...Array(2)].map((_, index) => (
-              <div
-                key={index}
-                className="flex-1 py-4 px-6"
-              >
+              <div key={index} className="flex-1 py-4 px-6">
                 <div className="h-6 bg-orange-200 rounded mx-auto w-40"></div>
               </div>
             ))}
@@ -110,7 +114,8 @@ const ProductDetailsSkeleton = () => {
 
       <style jsx>{`
         @keyframes pulse {
-          0%, 100% {
+          0%,
+          100% {
             opacity: 1;
           }
           50% {
