@@ -1,16 +1,19 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import React from "react";
 
 const SocialButtons = () => {
+  const params = useSearchParams();
+  console.log("This params", params.get("callbackUrl") || "");
+
   const handelGoogleLogin = async () => {
     const result = await signIn("google", {
-      redirect: "false",
-      callbackUrl: "/",
+    //   redirect: "false",
+      callbackUrl: params.get("callbackUrl") || "",
     });
-    console.log(result);
-    fa;
+    console.log("This is Google Signin", result);
   };
   return (
     <div>
@@ -31,7 +34,7 @@ const SocialButtons = () => {
       </button>
 
       {/* GitHub Button */}
-      <button
+      {/* <button
         type="button"
         className="w-full mt-4 flex items-center justify-center gap-4 bg-gray-900 text-white py-4 rounded-xl font-semibold hover:bg-gray-800 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300"
       >
@@ -43,7 +46,7 @@ const SocialButtons = () => {
           className="w-6 h-6 invert brightness-0"
         />
         <span className="tracking-wide">GitHub দিয়ে লগইন করুন</span>
-      </button>
+      </button> */}
     </div>
   );
 };

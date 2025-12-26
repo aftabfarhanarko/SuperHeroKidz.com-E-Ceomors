@@ -14,14 +14,14 @@ import {
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import Image from "next/image";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import SocialButtons from "../Button/SocialButtons";
 
 const LoginCompontents = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter();
+  const params = useSearchParams();
+  const callback = params.get("callbackUrl") || "/";
   const {
     register,
     handleSubmit,
@@ -33,13 +33,13 @@ const LoginCompontents = () => {
       email: data?.email,
       password: data?.password,
       redirect: false,
+      callbackUrl: params.get("callbackUrl") || "/",
     });
 
     if (!result.ok) {
       toast.warning(`আপনার পাসওয়ার্ড বা ইমেইল ভুল হয়েছে ? ${result.error}`);
     } else {
       toast.success(`${result.message}`);
-      router.push("/");
     }
   };
 
@@ -145,13 +145,13 @@ const LoginCompontents = () => {
             <div className="flex-1 h-px bg-gray-300" />
           </div>
 
-        <SocialButtons />
+          <SocialButtons />
 
           {/* Register Link */}
           <p className="text-center text-sm text-gray-600 mt-6">
             এখনো রেজিস্টার করেননি?{" "}
             <Link
-              href={"/register"}
+              href={`/register?${callback.slice(1)}`}
               className="text-orange-400 font-semibold cursor-pointer hover:underline"
             >
               রেজিস্টার করুন
