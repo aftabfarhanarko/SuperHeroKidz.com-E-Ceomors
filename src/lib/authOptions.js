@@ -44,4 +44,45 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      // console.log({ user, account, profile, email, credentials });
+
+      const isExgised = await dbConnect(collection.USERS).findOne({
+        email: user.email,
+        provider: account?.provider,
+      });
+      if (isExgised) {
+        return {
+          success: false,
+          message:
+            "এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্টার করা আছে। লগইন করুন অথবা অন্য একটি ইমেইল ব্যবহার করুন।",
+        };
+      }
+
+      // creat User
+      const addUser = {
+        provider: account.provider,
+        providerAccountId: account.providerAccountId,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+        role: "customer",
+        creatAt: new Date().toISOString(),
+      };
+      // console.log(addUser);
+      const result = await dbConnect(collection.USERS).insertOne(addUser);
+        
+      return result.acknowledged;
+    },
+    // async redirect({ url, baseUrl }) {
+    //   return baseUrl;
+    // },
+    // async session({ session, token, user }) {
+    //   return session;
+    // },
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   return token;
+    // },
+  },
 };

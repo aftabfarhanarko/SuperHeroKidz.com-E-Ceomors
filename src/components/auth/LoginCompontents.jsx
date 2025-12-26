@@ -15,12 +15,13 @@ import {
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SocialButtons from "../Button/SocialButtons";
 
 const LoginCompontents = () => {
   const [showPassword, setShowPassword] = useState(false);
   const params = useSearchParams();
+  const router = useRouter();
   const callback = params.get("callbackUrl") || "/";
   const {
     register,
@@ -39,7 +40,8 @@ const LoginCompontents = () => {
     if (!result.ok) {
       toast.warning(`আপনার পাসওয়ার্ড বা ইমেইল ভুল হয়েছে ? ${result.error}`);
     } else {
-      toast.success(`${result.message}`);
+      toast.success(`${result.message || "লগইন করা হয়েছে। 🚀 "}`);
+      router.push("/");
     }
   };
 

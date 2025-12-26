@@ -11,10 +11,12 @@ const AuthButtons = () => {
       {session.status == "authenticated" ? (
         <>
           <div className="flex flex-col md:flex-row md:items-center gap-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
+            <div className="w-13 h-13 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
               <img
-                src={session?.data?.user?.image || "/default-avatar.png"} // fallback image দাও
-                alt="User Avatar"
+                src={
+                  session?.data?.user?.image ||
+                  "https://i.ibb.co.com/20gQrjWy/techer4.jpg"
+                } // fallback image দাও
                 className="w-full h-full object-cover"
                 // অথবা যদি session null হয় তাহলে placeholder
               />
@@ -22,7 +24,7 @@ const AuthButtons = () => {
             <button
               type="button"
               onClick={() => signOut()}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-secondary text-white text-xl font-medium md:text-md  rounded-lg hover:shadow-lg hover:scale-100 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-secondary text-white text-lg font-medium md:text-md  rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
             >
               <LogOutIcon className="w-4 h-4" />
               Logout
@@ -35,8 +37,8 @@ const AuthButtons = () => {
           {/* hover:bg-gradient-to-r hover:from-primary  hover:to-secondary hover:text-white */}
           <Link
             href="/login"
-            className="flex items-center gap-2 px-6 py-2.5  outline  text-primary 
-            font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+            className="flex items-center gap-2 px-4 py-2  outline  text-primary 
+            font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
             <UserRoundCheck className="w-5 h-5" />
             Login
@@ -44,7 +46,7 @@ const AuthButtons = () => {
           {/* Register Button */}
           <Link
             href="/register"
-            className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-4 focus:ring-primary/50"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-orange-500 to-secondary text-white font-semibold rounded-lg hover:shadow-lg hover:scale-105 transition-transform duration-200 focus:outline-none focus:ring-2 outline focus:ring-primary/50"
           >
             <UserPlus className="w-5 h-5" />
             Register

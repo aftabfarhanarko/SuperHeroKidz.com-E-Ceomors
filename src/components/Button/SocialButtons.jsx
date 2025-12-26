@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import React from "react";
 
+
+
 const SocialButtons = () => {
   const params = useSearchParams();
   console.log("This params", params.get("callbackUrl") || "");

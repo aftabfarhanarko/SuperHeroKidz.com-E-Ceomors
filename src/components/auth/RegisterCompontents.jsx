@@ -18,15 +18,19 @@ import { useForm, Controller } from "react-hook-form";
 import Link from "next/link";
 import Image from "next/image";
 import { postUser } from "@/actions/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { uploadToImgBB } from "@/lib/imagesUpBB";
 import SocialButtons from "../Button/SocialButtons";
+import { signIn } from "next-auth/react";
 
 const RegisterComponents = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
-  const router = useRouter();
+  const params = useSearchParams();
+  const callback = params.get("callbackUrl") || "";
+  console.log(params.get("callbackUrl") || "/");
+
   const {
     register,
     handleSubmit,
@@ -35,11 +39,8 @@ const RegisterComponents = () => {
   } = useForm();
 
   const registerData = async (data) => {
-    // console.log("রেজিস্টার ডাটা:", data);
     const imagesa = data.image;
     const newImages = await uploadToImgBB(imagesa);
-    // console.log(newImages);
-
     const user = {
       name: data.name,
       email: data.email,
@@ -49,11 +50,15 @@ const RegisterComponents = () => {
       phone: data.phone,
     };
     const result = await postUser(user);
-    console.log(result);
-
     if (result.insertedId) {
+      // router.push("/login");
+      const result2 = await signIn("credentials", {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        callbackUrl: callback,
+      });
       toast.success(`রেজিস্ট্রেশন সফল হয়েছে! ${result.insertedId}`);
-      router.push("/login");
     } else {
       toast.warning(`${result.message}`);
     }
