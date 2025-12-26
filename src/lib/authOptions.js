@@ -1,9 +1,9 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import { collection, dbConnect } from "./mopngodb";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {
-  // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -19,7 +19,7 @@ export const authOptions = {
         if (!credentials?.email || !credentials?.password) {
           return { message: "ইমেইল এবং পাসওয়ার্ড উভয়ই দিতে হবে।" };
         }
-        
+
         const { email, password } = credentials;
         try {
           const result = await dbConnect(collection.USERS).findOne({ email });
@@ -38,5 +38,10 @@ export const authOptions = {
         }
       },
     }),
-  ], // ...add more providers here],
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
 };

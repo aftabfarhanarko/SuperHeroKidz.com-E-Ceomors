@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useSession } from "next-auth/react";
 // import { fontBangla } from '@/app/layout';
 
 const ProductDetails = ({ product }) => {
@@ -20,6 +21,7 @@ const ProductDetails = ({ product }) => {
   const [activeTab, setActiveTab] = useState("description");
   const [isWishlisted, setIsWishlisted] = useState(false);
   const users = false;
+  const session = useSession();
   const router = useRouter();
   const path = usePathname();
 
@@ -36,7 +38,7 @@ const ProductDetails = ({ product }) => {
 
   // Add to card now
   const producatAddCard = (data) => {
-    if (users) {
+    if (session.status == "authenticated") {
       return toast.success(data._id);
     } else {
       return router.push(`/login?callbackUrl=${path}`);
