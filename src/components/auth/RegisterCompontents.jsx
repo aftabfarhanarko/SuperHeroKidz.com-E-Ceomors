@@ -21,6 +21,7 @@ import { postUser } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { uploadToImgBB } from "@/lib/imagesUpBB";
+import SocialButtons from "../Button/SocialButtons";
 
 const RegisterComponents = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -308,34 +309,7 @@ const RegisterComponents = () => {
             <div className="flex-1 h-px bg-gray-300" />
           </div>
 
-          {/* Google & GitHub Buttons (unchanged) */}
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-4 bg-white border border-gray-200 py-4 rounded-xl font-semibold text-gray-800 hover:bg-gray-50 hover:border-gray-300 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300"
-          >
-            <Image
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="Google"
-              height={24}
-              width={24}
-              className="w-6 h-6"
-            />
-            <span className="tracking-wide">Google দিয়ে রেজিস্টার করুন</span>
-          </button>
-
-          <button
-            type="button"
-            className="w-full mt-4 flex items-center justify-center gap-4 bg-gray-900 text-white py-4 rounded-xl font-semibold hover:bg-gray-800 hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-300"
-          >
-            <Image
-              height={24}
-              width={24}
-              src="https://www.svgrepo.com/show/512317/github-142.svg"
-              alt="GitHub"
-              className="w-6 h-6 invert brightness-0"
-            />
-            <span className="tracking-wide">GitHub দিয়ে রেজিস্টার করুন</span>
-          </button>
+          <SocialButtons />
 
           {/* Login Link */}
           <p className="text-center text-sm text-gray-600 mt-6">

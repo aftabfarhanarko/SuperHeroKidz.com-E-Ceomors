@@ -124,10 +124,8 @@ const Navbar = () => {
       >
         <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-lg shadow-lg">
           <ul className=" flex flex-col gap-5">{navLinks}</ul>
-          {/* <button className="w-full mt-4 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-200">
-            Get Started
-          </button> */}
-          <div className="flex flex-col mb-5   items-left max-w-[140px]">
+         
+          <div className="flex flex-col mb-5   items-left  max-w-[140px]">
             <AuthButtons />
           </div>
         </div>
