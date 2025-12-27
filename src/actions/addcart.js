@@ -58,8 +58,8 @@ export const getUserCart = async () => {
 
     const query = { email: user?.email };
     const result = await cartCollection.find(query).toArray();
-    const count = await cartCollection.countDocuments(query);
-    return { result, count };
+    // const count = await cartCollection.countDocuments(query);
+    return result;
   } catch (error) {
     console.log(error);
   }
