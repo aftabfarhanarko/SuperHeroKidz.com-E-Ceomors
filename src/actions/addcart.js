@@ -79,10 +79,10 @@ export const deleteCart = async (id) => {
     }
     const query = { _id: new ObjectId(id) };
     const result = await cartCollection.deleteOne(query);
-    if(result.modifiedCount){
-      revalidatePath("/cart")
+    if (result.deletedCount) {
+      revalidatePath("/cart");
     }
-    return { success: result.modifiedCount };
+    return { success: result.deletedCount };
   } catch (error) {
     console.log(error);
   }
