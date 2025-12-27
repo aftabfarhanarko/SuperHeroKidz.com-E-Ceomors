@@ -8,46 +8,36 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: {
-          label: "email",
-          type: "text",
-          placeholder: "write your email",
-        },
-        password: { label: "password", type: "password" },
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
-        // console.log("This is Credentials", credentials);
-
         if (!credentials?.email || !credentials?.password) {
-          return null; // ফেল, কোনো message দরকার নেই
-        }
-        const { email, password } = credentials;
-
-        try {
-          const user = await dbConnect(collection.USERS).findOne({ email });
-          // console.log("Thise is User Data", user);
-
-          if (!user) {
-            return null; // ইমেইল পাওয়া যায়নি
-          }
-
-          const isPasswordValid = await bcrypt.compare(password, user.password);
-
-          if (!isPasswordValid) {
-            return null; // পাসওয়ার্ড ভুল
-          }
-
-          // সফল হলে শুধু user object রিটার্ন করো (যাতে অন্তত id বা _id থাকে)
-          return {
-            id: user._id.toString(), // খুব গুরুত্বপূর্ণ! MongoDB _id কে string করো
-            email: user.email,
-            name: user.name || null, // যদি name থাকে
-            // অন্যান্য ফিল্ড যা session এ চাও
-          };
-        } catch (error) {
-          // console.error("Login error:", error);
           return null;
         }
+
+        const user = await dbConnect(collection.USERS).findOne({
+          email: credentials.email,
+        });
+
+        if (!user) return null;
+
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isValid) return null;
+
+        // ✅ VERY IMPORTANT: image + role return
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          image: user.image || null,
+          role: user.role || "customer",
+        };
       },
     }),
 
@@ -56,45 +46,89 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      // console.log({ user, account, profile, email, credentials });
 
-      const isExgised = await dbConnect(collection.USERS).findOne({
-        email: user.email,
-        provider: account?.provider,
-      });
-      if (isExgised) {
-        return {
-          success: false,
-          message:
-            "এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্টার করা আছে। লগইন করুন অথবা অন্য একটি ইমেইল ব্যবহার করুন।",
-        };
+  callbacks: {
+    // ================= SIGN IN =================
+    async signIn({ user, account }) {
+      if (account.provider === "credentials") {
+        // Credentials user already exists
+        return true;
       }
 
-      // creat User
-      const addUser = {
-        provider: account.provider,
-        providerAccountId: account.providerAccountId,
-        name: user.name,
-        email: user.email,
-        image: user.image,
-        role: "customer",
-        creatAt: new Date().toISOString(),
-      };
-      // console.log(addUser);
-      const result = await dbConnect(collection.USERS).insertOne(addUser);
+      // Google Login
+      const usersCollection = dbConnect(collection.USERS);
 
-      return result.acknowledged;
+      const existingUser = await usersCollection.findOne({
+        email: user.email,
+      });
+
+      if (!existingUser) {
+        await usersCollection.insertOne({
+          name: user.name,
+          email: user.email,
+          image: user.image,
+          role: "customer",
+          provider: account.provider,
+          providerAccountId: account.providerAccountId,
+          createdAt: new Date(),
+        });
+      }
+
+      return true; // ✅ MUST be boolean
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    // },
-    // async session({ session, token, user }) {
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token;
-    // },
+
+    // ================= SESSION =================
+    async session({ session, token }) {
+      if (token) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.image;
+        session.user.role = token.role;
+      }
+      console.log("SESSION USER", session);
+
+      return session;
+    },
+
+    // ================= JWT =================
+    async jwt({ token, user,account }) {
+      // First time login
+
+      if (user) {
+        if (account.provider == "google") {
+          const dbUser = await dbConnect(collection.USERS).findOne({
+            email: user.email,
+          });
+          token.name = dbUser.name;
+          token.role = dbUser?.role;
+          token.email = dbUser?.email;
+          token.image = dbUser.image;
+        } else {
+          token.name = user.name;
+          token.email = user.email;
+          token.image = user.image;
+          token.role = user.role;
+        }
+      }
+      console.log("JWT USER", user);
+
+      // 🔥 Always sync from DB (important)
+      // if (token?.email) {
+      //   const dbUser = await dbConnect(collection.USERS).findOne({
+      //     email: token.email,
+      //   });
+
+      //   if (dbUser) {
+      //     token.image = dbUser.image || token.image;
+      //     token.role = dbUser.role || token.role;
+      //   }
+      // }
+
+      return token;
+    },
   },
+
+  // session: {
+  //   strategy: "jwt",
+  // },
 };

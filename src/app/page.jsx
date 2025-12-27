@@ -1,9 +1,15 @@
 import Banner from "@/components/Home/Banner";
 import Producats from "@/components/Home/Producats";
+import { authOptions } from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession();
+  console.log(session);
+
   return (
     <div className="space-y-25">
+      {JSON.stringify(session)}
       <section>
         <Banner></Banner>
       </section>
