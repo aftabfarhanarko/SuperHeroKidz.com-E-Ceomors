@@ -2,7 +2,10 @@
 
 import { authOptions } from "@/lib/authOptions";
 import { collection, dbConnect } from "@/lib/mopngodb";
+import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
+import { revalidatePath } from "next/cache";
+import { cache } from "react";
 
 const cartCollection = dbConnect(collection.CART);
 export const handleCart = async ({ producat, inc = true }) => {
@@ -49,7 +52,7 @@ export const handleCart = async ({ producat, inc = true }) => {
   }
 };
 
-export const getUserCart = async () => {
+export const getUserCart = cache(async () => {
   try {
     const { user } = (await getServerSession(authOptions)) || {};
     if (!user) {
@@ -60,6 +63,26 @@ export const getUserCart = async () => {
     const result = await cartCollection.find(query).toArray();
     // const count = await cartCollection.countDocuments(query);
     return result;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+export const deleteCart = async (id) => {
+  try {
+    const { user } = (await getServerSession(authOptions)) || {};
+    // if (!user) {
+    //   return { success: false };
+    // }
+    if (id.length !== 24) {
+      return { success: false };
+    }
+    const query = { _id: new ObjectId(id) };
+    const result = await cartCollection.deleteOne(query);
+    if(result.modifiedCount){
+      revalidatePath("/cart")
+    }
+    return { success: result.modifiedCount };
   } catch (error) {
     console.log(error);
   }

@@ -3,11 +3,116 @@
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { deleteCart } from "@/actions/addcart";
+import Swal from "sweetalert2";
 
 export default function CartItem({ item }) {
-    const itemsDelete = (id) => {
-        toast.success(`Delete ${id}`);
-    }
+  const itemsDelete = async (id) => {
+    Swal.fire({
+      title: "🗑️ Delete Item?",
+      html: `
+      <div class="space-y-3 mt-4">
+        <p class="text-gray-700 text-base font-medium">This action cannot be undone!</p>
+        <div class="flex items-center justify-center gap-2 px-4 py-2 bg-red-50 border-2 border-red-200 rounded-xl">
+          <svg class="text-red-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          <span class="text-red-700 font-semibold text-sm">Permanent deletion warning</span>
+        </div>
+      </div>
+    `,
+      icon: "warning",
+      iconColor: "#f59e0b",
+      showCancelButton: true,
+      confirmButtonText: "✓ Yes, Delete",
+      cancelButtonText: "✕ Cancel",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#64748b",
+      background: "linear-gradient(135deg, #ffffff 0%, #f9fafb 100%)",
+      customClass: {
+        popup: "rounded-3xl shadow-2xl border-4 border-gray-200 p-6",
+        title: "text-3xl font-black text-gray-900",
+        htmlContainer: "text-gray-600",
+        confirmButton:
+          "rounded-2xl px-8 py-4 font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1",
+        cancelButton:
+          "rounded-2xl px-8 py-4 font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1",
+        actions: "gap-4 mt-8",
+      },
+      showClass: {
+        popup: "animate__animated animate__zoomIn animate__faster",
+      },
+      hideClass: {
+        popup: "animate__animated animate__zoomOut animate__faster",
+      },
+    }).then(async (result) => {
+      // User clicked "Yes, Delete" button
+      if (result.isConfirmed) {
+        try {
+          // Call your delete API/function
+          const deleteResult = await deleteCart(id);
+
+          // Show success message
+          Swal.fire({
+            title: "✅ Successfully Deleted!",
+            html: `
+            <div class="space-y-3 mt-4">
+              <p class="text-gray-700 text-base">Your item has been permanently removed.</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border-2 border-green-200 rounded-xl">
+                <svg class="text-green-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span class="text-green-700 font-semibold text-sm">Action completed</span>
+              </div>
+            </div>
+          `,
+            icon: "success",
+            iconColor: "#10b981",
+            confirmButtonText: "Perfect! 🎉",
+            confirmButtonColor: "#10b981",
+            background: "linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%)",
+            customClass: {
+              popup: "rounded-3xl shadow-2xl border-4 border-green-200 p-6",
+              title:
+                "text-3xl font-black bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent",
+              confirmButton:
+                "rounded-2xl px-10 py-4 font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110",
+            },
+            showClass: {
+              popup: "animate__animated animate__jackInTheBox",
+            },
+            timer: 3000,
+            timerProgressBar: true,
+          });
+
+          // Optional: Refresh your cart data or update state
+          // refetchCart(); or setCartItems(prev => prev.filter(item => item.id !== id));
+        } catch (error) {
+          // Show error message if delete fails
+          Swal.fire({
+            title: "❌ Delete Failed!",
+            html: `
+            <div class="space-y-3 mt-4">
+              <p class="text-gray-700 text-base">Something went wrong. Please try again.</p>
+              <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 border-2 border-red-200 rounded-xl">
+                <svg class="text-red-500" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                <span class="text-red-700 font-semibold text-sm">Error occurred</span>
+              </div>
+            </div>
+          `,
+            icon: "error",
+            iconColor: "#ef4444",
+            confirmButtonText: "Try Again",
+            confirmButtonColor: "#ef4444",
+            background: "linear-gradient(135deg, #ffffff 0%, #fef2f2 100%)",
+            customClass: {
+              popup: "rounded-3xl shadow-2xl border-4 border-red-200 p-6",
+              title: "text-3xl font-black text-red-600",
+              confirmButton:
+                "rounded-2xl px-10 py-4 font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110",
+            },
+          });
+        }
+      }
+    });
+  };
+
   return (
     <div className="group relative flex flex-col sm:flex-row gap-4 rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-4 sm:p-5 shadow-sm transition-all duration-300 hover:shadow-xl hover:border-blue-300 hover:-translate-y-1">
       {/* Product Image */}
