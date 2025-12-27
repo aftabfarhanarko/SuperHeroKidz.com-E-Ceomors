@@ -4,7 +4,8 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 const AuthButtons = () => {
   const session = useSession();
-  // console.log("This is Navbar", session.data.user.image);
+  console.log("This is Navbar", session.data?.user?.image);
+  console.log(session);
 
   return (
     <div>
@@ -13,10 +14,7 @@ const AuthButtons = () => {
           <div className="flex flex-col md:flex-row md:items-center gap-3">
             <div className="w-13 h-13 rounded-full overflow-hidden border-2 border-primary/30 shadow-md">
               <img
-                src={
-                  session?.data?.user?.image ||
-                  "https://i.ibb.co.com/20gQrjWy/techer4.jpg"
-                } // fallback image দাও
+                src={session?.data?.user?.image || ""} // fallback image দাও
                 className="w-full h-full object-cover"
                 // অথবা যদি session null হয় তাহলে placeholder
               />

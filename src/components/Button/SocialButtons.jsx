@@ -13,7 +13,7 @@ const SocialButtons = () => {
   const handelGoogleLogin = async () => {
     const result = await signIn("google", {
     //   redirect: "false",
-      callbackUrl: params.get("callbackUrl") || "",
+      callbackUrl: params.get("callbackUrl") || "/",
     });
     console.log("This is Google Signin", result);
   };

@@ -27,9 +27,13 @@ import { signIn } from "next-auth/react";
 const RegisterComponents = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
+  const router = useRouter();
   const params = useSearchParams();
-  const callback = params.get("callbackUrl") || "";
-  console.log(params.get("callbackUrl") || "/");
+
+  // ✅ fallback home page
+  const callbackUrl = params.get("callbackUrl") || "/";
+  console.log(callbackUrl);
+  
 
   const {
     register,
@@ -39,28 +43,45 @@ const RegisterComponents = () => {
   } = useForm();
 
   const registerData = async (data) => {
-    const imagesa = data.image;
-    const newImages = await uploadToImgBB(imagesa);
-    const user = {
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      address: data.address,
-      image: newImages.url, // File object directly
-      phone: data.phone,
-    };
-    const result = await postUser(user);
-    if (result.insertedId) {
-      // router.push("/login");
-      const result2 = await signIn("credentials", {
-        name: user.name,
+    try {
+      const imagesa = data.image;
+      const newImages = await uploadToImgBB(imagesa);
+      console.log(newImages.url);
+      
+      const user = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        address: data.address,
+        image: newImages.url, // File object directly
+        phone: data.phone,
+      };
+      const result = await postUser(user);
+
+      if (!result?.success) {
+        toast.error(result?.message || "Registration failed");
+        return;
+      }
+
+      // ✅ Auto Sign In
+      const loginResult = await signIn("credentials", {
         email: user.email,
         password: user.password,
-        callbackUrl: callback,
+        image: newImages.url,
+        redirect: false, // 🔴 must
       });
-      toast.success(`রেজিস্ট্রেশন সফল হয়েছে! ${result.insertedId}`);
-    } else {
-      toast.warning(`${result.message}`);
+      console.log("Auto Signin", loginResult);
+      
+
+      if (loginResult?.ok) {
+        toast.success("রেজিস্ট্রেশন সফল হয়েছে 🎉");
+        router.push(callbackUrl);
+      } else {
+        toast.error("লগইন ব্যর্থ হয়েছে");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong!");
     }
   };
 

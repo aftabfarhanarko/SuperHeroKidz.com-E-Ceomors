@@ -15,25 +15,37 @@ export const authOptions = {
         },
         password: { label: "password", type: "password" },
       },
-      async authorize(credentials, req) {
-        if (!credentials?.email || !credentials?.password) {
-          return { message: "ইমেইল এবং পাসওয়ার্ড উভয়ই দিতে হবে।" };
-        }
+      async authorize(credentials) {
+        // console.log("This is Credentials", credentials);
 
+        if (!credentials?.email || !credentials?.password) {
+          return null; // ফেল, কোনো message দরকার নেই
+        }
         const { email, password } = credentials;
+
         try {
-          const result = await dbConnect(collection.USERS).findOne({ email });
-          const isPasswordValid = await bcrypt.compare(
-            password,
-            result.password
-          );
-          // return result;
-          if (!isPasswordValid) {
-            return { message: "পাসওয়ার্ড ভুল হয়েছে। আবার চেষ্টা করুন।।" };
+          const user = await dbConnect(collection.USERS).findOne({ email });
+          // console.log("Thise is User Data", user);
+
+          if (!user) {
+            return null; // ইমেইল পাওয়া যায়নি
           }
 
-          return { message: " সফল হলে  লগইন হয়েছে।" };
+          const isPasswordValid = await bcrypt.compare(password, user.password);
+
+          if (!isPasswordValid) {
+            return null; // পাসওয়ার্ড ভুল
+          }
+
+          // সফল হলে শুধু user object রিটার্ন করো (যাতে অন্তত id বা _id থাকে)
+          return {
+            id: user._id.toString(), // খুব গুরুত্বপূর্ণ! MongoDB _id কে string করো
+            email: user.email,
+            name: user.name || null, // যদি name থাকে
+            // অন্যান্য ফিল্ড যা session এ চাও
+          };
         } catch (error) {
+          // console.error("Login error:", error);
           return null;
         }
       },
@@ -72,7 +84,7 @@ export const authOptions = {
       };
       // console.log(addUser);
       const result = await dbConnect(collection.USERS).insertOne(addUser);
-        
+
       return result.acknowledged;
     },
     // async redirect({ url, baseUrl }) {

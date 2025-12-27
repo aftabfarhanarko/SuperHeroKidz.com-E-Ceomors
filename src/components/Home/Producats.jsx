@@ -20,7 +20,7 @@ const Producats = async () => {
                       md:grid-cols-3 
                       lg:grid-cols-4
                       xl:grid-cols-4
-                    justify-center"
+                    justify-center my-10"
       >
         {product2.map((one) => (
           <Cards one={one} key={one.price} />

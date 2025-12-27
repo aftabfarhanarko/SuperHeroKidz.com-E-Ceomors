@@ -31,25 +31,27 @@ const LoginCompontents = () => {
 
   const loginUser = async (data) => {
     const result = await signIn("credentials", {
-      email: data?.email,
-      password: data?.password,
-      redirect: false,
-      callbackUrl: params.get("callbackUrl") || "/",
+      email: data.email,
+      password: data.password,
+      redirect: false, // এটা true রাখলে client-side handling কঠিন হয়
+      callbackUrl: callback,
     });
+    console.log("Login User", result);
+    
 
-    if (!result.ok) {
-      toast.warning(`আপনার পাসওয়ার্ড বা ইমেইল ভুল হয়েছে ? ${result.error}`);
-    } else {
-      toast.success(`${result.message || "লগইন করা হয়েছে। 🚀 "}`);
-      router.push("/");
+    if (result?.error) {
+      toast.warning("ইমেইল বা পাসওয়ার্ড ভুল হয়েছে!");
+      console.log("Login error:", result.error);
+    } else if (result?.ok) {
+      toast.success("সফলভাবে লগইন হয়েছে! 🚀");
+      router.push(result.url || "/");
     }
   };
-
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-50">
       <div className="max-w-xl w-full bg-white rounded-3xl shadow-2xl p-8">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800 mb-2">
+          <h2 className={`text-3xl font-bold text-gray-800 mb-2 `}>
             আপনার অ্যাকাউন্টে লগইন করুন
           </h2>
           <p className="text-gray-500">আপনার তথ্য দিয়ে লগইন করুন</p>

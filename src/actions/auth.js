@@ -1,27 +1,31 @@
 "use server";
 
 import { collection, dbConnect } from "@/lib/mopngodb";
-
 import bcrypt from "bcryptjs";
+
 export const postUser = async (payload) => {
   const { name, email, password, address, image, phone } = payload;
-  // check payload
-  if (!email || !password) return null;
+  console.log("This is Register data Saved DB", image,payload);
+  
 
-  // check User
-
-  // ইমেইল আগে থেকে আছে কি না চেক করা
-  const isExgised = await dbConnect(collection.USERS).findOne({ email });
-  if (isExgised) {
+  if (!email || !password) {
     return {
       success: false,
-      message:
-        "এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্টার করা আছে। লগইন করুন অথবা অন্য একটি ইমেইল ব্যবহার করুন।",
+      message: "Email এবং password আবশ্যক",
     };
   }
 
-  // creat User
-  const addUser = {
+  const existingUser = await dbConnect(collection.USERS).findOne({ email });
+
+  if (existingUser) {
+    return {
+      success: false,
+      message:
+        "এই ইমেইল দিয়ে ইতিমধ্যে রেজিস্টার করা আছে। অনুগ্রহ করে লগইন করুন।",
+    };
+  }
+
+  const newUser = {
     provider: "credentials",
     name,
     email,
@@ -30,15 +34,20 @@ export const postUser = async (payload) => {
     phone,
     image,
     role: "customer",
-    creatAt: new Date().toISOString(),
+    createdAt: new Date(),
   };
-  // inseart User
 
-  const result = await dbConnect(collection.USERS).insertOne(addUser);
+  const result = await dbConnect(collection.USERS).insertOne(newUser);
+
   if (result.acknowledged) {
     return {
-      ...result,
+      success: true,
       insertedId: result.insertedId.toString(),
     };
   }
+
+  return {
+    success: false,
+    message: "User create failed",
+  };
 };
