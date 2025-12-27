@@ -85,7 +85,7 @@ export const authOptions = {
         session.user.image = token.image;
         session.user.role = token.role;
       }
-      console.log("SESSION USER", session);
+      // console.log("SESSION USER", session);
 
       return session;
     },
@@ -110,7 +110,7 @@ export const authOptions = {
           token.role = user.role;
         }
       }
-      console.log("JWT USER", user);
+      // console.log("JWT USER", user);
 
       // 🔥 Always sync from DB (important)
       // if (token?.email) {

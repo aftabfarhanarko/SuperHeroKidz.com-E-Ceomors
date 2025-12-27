@@ -3,6 +3,7 @@ import { fontBangla } from "@/app/layout";
 import { Eye, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import AddButtons from "../Button/AddButtons";
 // import React, { useEffect } from "react";
 // import AOS from "aos"; // AOS library নিজে
 // import "aos/dist/aos.css";
@@ -22,16 +23,10 @@ const Cards = ({ one }) => {
 
   const discountedPrice = (price * (100 - percentage)) / 100;
 
-  // useEffect(() => {
-  //   AOS.init({
-  //     duration: 4000, // animation duration (ms) – ইচ্ছামতো change করতে পারো
-  //     once: false,
-  //   });
-  // }, []);
-
   return (
     <>
       <div
+        key={_id}
         // data-aos="zoom-in"
         className="group relative max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 ease-out border border-gray-100"
       >
@@ -130,23 +125,14 @@ const Cards = ({ one }) => {
           {/* Action Buttons - Always Visible, Premium Style */}
           <div className="flex gap-3">
             {/* Add to Cart */}
-            <button
-              className="flex-1 bg-gradient-to-r from-primary to-pink-600 text-white 
-    flex items-center justify-center gap-2
-    py-3 rounded-xl font-semibold shadow-md 
-    hover:shadow-lg hover:from-rose-600 hover:to-pink-700 
-    transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Add to Cart
-            </button>
+            <AddButtons producat={{ ...one, _id: _id.toString() }} />
 
             {/* View Details */}
             <Link href={`/producat/${_id}`} className="flex-1">
               <button
                 className="w-full border border-primary text-primary
       flex items-center justify-center gap-2
-      py-3 rounded-xl font-semibold shadow-sm
+      py-2.5 rounded-xl font-semibold shadow-sm
       hover:bg-primary hover:text-white hover:shadow-md
       transition-all duration-300 transform hover:-translate-y-0.5"
               >

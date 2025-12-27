@@ -15,7 +15,7 @@ const SocialButtons = () => {
     //   redirect: "false",
       callbackUrl: params.get("callbackUrl") || "/",
     });
-    console.log("This is Google Signin", result);
+    // console.log("This is Google Signin", result);
   };
   return (
     <div>

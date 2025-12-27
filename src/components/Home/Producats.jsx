@@ -10,8 +10,10 @@ const Producats = async () => {
 
   return (
     <div className="">
-      <h1 className={`${fontBangla.className} text-4xl font-semibold text-center mb-15`}>
-       আমাদের <span className="text-primary">পণ্য </span>
+      <h1
+        className={`${fontBangla.className} text-4xl font-semibold text-center mb-15`}
+      >
+        আমাদের <span className="text-primary">পণ্য </span>
       </h1>
       <div
         className="grid gap-6
@@ -23,7 +25,7 @@ const Producats = async () => {
                     justify-center my-10"
       >
         {product2.map((one) => (
-          <Cards one={one} key={one.price} />
+          <Cards one={one} key={one._id} />
         ))}
       </div>
     </div>

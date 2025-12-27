@@ -4,7 +4,7 @@ import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 const AuthButtons = () => {
   const session = useSession();
-  console.log("This is Navbar", session.data?.user?.image);
+  // console.log("This is Navbar", session.data?.user?.image);
   console.log(session);
 
   return (

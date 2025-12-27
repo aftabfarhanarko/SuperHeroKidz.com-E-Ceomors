@@ -71,10 +71,16 @@ const Navbar = () => {
           {/* CTA Button - Desktop */}
           <div className="hidden md:flex items-center space-x-6">
             {/* Shopping Cart */}
-            <button className="relative group">
+            <Link
+              href="/cart"
+              className="relative bg-orange-100 text-orange-500 flex items-center justify-center p-2 sm:p-2.5 rounded-full
+             hover:bg-gray-100 transition-all duration-200 group"
+            >
+              {/* Cart Icon */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700 group-hover:text-blue-600 transition-colors duration-200"
+                className="h-6 w-6 sm:h-7 sm:w-7 text-orange-400
+               group-hover:text-orange-500 transition-colors duration-200"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -83,14 +89,14 @@ const Navbar = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4
+         M7 13L5.4 5M7 13l-2.293 2.293
+         c-.63.63-.184 1.707.707 1.707H17
+         m0 0a2 2 0 100 4 2 2 0 000-4
+         zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              {/* Cart Badge */}
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                3
-              </span>
-            </button>
+            </Link>
 
             {/* Login Button */}
             <div className="flex gap-4 items-center">
@@ -124,7 +130,33 @@ const Navbar = () => {
       >
         <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-lg shadow-lg">
           <ul className=" flex flex-col gap-5">{navLinks}</ul>
-         
+          <Link
+            href="/cart"
+            className="relative  bg-orange-100 text-orange-500 flex items-center justify-center p-2 sm:p-2 rounded-md w-20
+            md:my-0 my-3
+             hover:bg-gray-100 transition-all duration-200 group"
+          >
+            {/* Cart Icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 sm:h-7 sm:w-7 text-orange-400
+               group-hover:text-orange-500 transition-colors duration-200"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4
+         M7 13L5.4 5M7 13l-2.293 2.293
+         c-.63.63-.184 1.707.707 1.707H17
+         m0 0a2 2 0 100 4 2 2 0 000-4
+         zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+          </Link>
           <div className="flex flex-col mb-5   items-left  max-w-[140px]">
             <AuthButtons />
           </div>

@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 export const postUser = async (payload) => {
   const { name, email, password, address, image, phone } = payload;
-  console.log("This is Register data Saved DB", image,payload);
+  // console.log("This is Register data Saved DB", image,payload);
   
 
   if (!email || !password) {

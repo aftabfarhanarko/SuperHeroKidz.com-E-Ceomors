@@ -14,10 +14,10 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import AddButtons from "../Button/AddButtons";
 // import { fontBangla } from '@/app/layout';
 
 const ProductDetails = ({ product }) => {
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState("description");
   const [isWishlisted, setIsWishlisted] = useState(false);
   const users = false;
@@ -28,23 +28,7 @@ const ProductDetails = ({ product }) => {
   const discountedPrice =
     product.price - (product.price * product.discount) / 100;
 
-  const handleQuantityChange = (type) => {
-    if (type === "increment") {
-      setQuantity(quantity + 1);
-    } else if (type === "decrement" && quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   // Add to card now
-  const producatAddCard = (data) => {
-    if (session.status == "authenticated") {
-      return toast.success(data._id);
-    } else {
-      return router.push(`/login?callbackUrl=${path}`);
-    }
-    // console.log("This Producat Add  Card Now", data);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 py-8 px-4">
@@ -137,30 +121,9 @@ const ProductDetails = ({ product }) => {
 
                 {/* Quantity & Actions */}
                 <div className="flex flex-wrap gap-4 mb-6">
-                  <div className="flex items-center border-2 border-gray-300 rounded-full overflow-hidden">
-                    <button
-                      onClick={() => handleQuantityChange("decrement")}
-                      className="px-4 py-2 hover:bg-gray-100 transition-colors"
-                    >
-                      <Minus className="w-5 h-5" />
-                    </button>
-                    <span className="px-6 py-2 font-semibold text-lg">
-                      {quantity}
-                    </span>
-                    <button
-                      onClick={() => handleQuantityChange("increment")}
-                      className="px-4 py-2 hover:bg-gray-100 transition-colors"
-                    >
-                      <Plus className="w-5 h-5" />
-                    </button>
-                  </div>
-                  <button
-                    onClick={() => producatAddCard(product)}
-                    className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-2 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2"
-                  >
-                    <ShoppingCart className="w-5 h-5" />
-                    Add to Cart
-                  </button>
+                  <AddButtons
+                    producat={{ ...product, _id: product._id.toString() }}
+                  />
                   {/* ADd card Buttons  */}
                   <button
                     onClick={() => setIsWishlisted(!isWishlisted)}

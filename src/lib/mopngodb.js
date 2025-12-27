@@ -4,6 +4,7 @@ const password = process.env.MONGODBPASSWORD;
 export const collection = {
   PRODUCTS: "products",
   USERS: "users",
+  CART:"cart"
 };
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
