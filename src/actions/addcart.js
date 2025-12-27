@@ -87,3 +87,25 @@ export const deleteCart = async (id) => {
     console.log(error);
   }
 };
+
+export const incritemintDB = async (id, quantity) => {
+  // console.log(id, quantity);
+  
+  const { user } = (await getServerSession(authOptions)) || {};
+  if (!user) {
+    return { success: false };
+  }
+
+  if (quantity > 10) {
+    return { success: false, message: "You cant buy 10 products at a Time" };
+  }
+
+  const query = { _id: new ObjectId(id) };
+  const updeatData = {
+    $inc: {
+      quantity: 1,
+    },
+  };
+  const result = await cartCollection.updateOne(query, updeatData);
+  return { success: Boolean(result.modifiedCount) };
+};

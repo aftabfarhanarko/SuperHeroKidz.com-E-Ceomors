@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { toast } from "sonner";
-import { deleteCart } from "@/actions/addcart";
+import { deleteCart, incritemintDB } from "@/actions/addcart";
 import Swal from "sweetalert2";
 
-export default function CartItem({ item }) {
+export default function CartItem({ item, removedItems, updeatQuintitey }) {
   const itemsDelete = async (id) => {
     Swal.fire({
       title: "🗑️ Delete Item?",
@@ -46,6 +45,7 @@ export default function CartItem({ item }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const deleteResult = await deleteCart(id);
+        removedItems(id);
         Swal.fire({
           title: "✅ Successfully Deleted!",
           html: `
@@ -77,6 +77,11 @@ export default function CartItem({ item }) {
         });
       }
     });
+  };
+
+  const incriget = async (quantity, id) => {
+    const result = await incritemintDB(quantity, id);
+    console.log("Updeat Now", result);
   };
 
   return (
@@ -114,10 +119,7 @@ export default function CartItem({ item }) {
         <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
           {/* Quantity Control */}
           <div className="flex items-center gap-2 rounded-xl border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-2 shadow-md hover:shadow-lg transition-all">
-            <button
-              onClick={() => onDecrease(item._id)}
-              className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-red-500 hover:to-pink-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm"
-            >
+            <button className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-red-500 hover:to-pink-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm">
               <Minus size={16} strokeWidth={2.5} />
             </button>
 
@@ -126,7 +128,7 @@ export default function CartItem({ item }) {
             </span>
 
             <button
-              onClick={() => onIncrease(item._id)}
+              onClick={() => incriget(item.quantity, item._id)}
               className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm"
             >
               <Plus size={16} strokeWidth={2.5} />

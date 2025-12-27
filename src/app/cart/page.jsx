@@ -1,10 +1,14 @@
 import { getUserCart } from "@/actions/addcart";
-import CartItem from "@/components/card/Cart.";
+import ClientCart from "@/components/card/ClientCart";
 import React from "react";
 
 const CartPagesadas = async () => {
-  const items = await getUserCart();
-  console.log(items);
+  const itesaddmsData = await getUserCart();
+  const itemsData = itesaddmsData.map((items) => ({
+    ...items,
+    _id: items._id.toString(),
+  }));
+  console.log(itemsData);
 
   return (
     <div className="max-w-10/12 mx-auto my-10">
@@ -27,17 +31,10 @@ const CartPagesadas = async () => {
             </p>
             <div className="h-px w-12 bg-gradient-to-l from-transparent to-gray-300" />
           </div>
-
-          {/* Item Count Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-semibold shadow-lg">
-            <span className="animate-pulse">●</span>
-            <span>{items.length} Items in Cart</span>
-          </div>
         </div>
+        {/* Item Count Badge */}
       </div>
-      {items.map((item) => (
-        <CartItem key={item._id} item={item} />
-      ))}
+      <ClientCart itemsData={itemsData} />
     </div>
   );
 };
