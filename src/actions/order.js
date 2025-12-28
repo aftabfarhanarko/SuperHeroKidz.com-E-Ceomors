@@ -3,6 +3,8 @@
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { cleradCart, getUserCart } from "./addcart";
+import { sendEmail } from "@/lib/sendEmail";
+import { orderInvoiceTemplate } from "@/lib/invoiceTemplate";
 
 const { dbConnect, collection } = require("@/lib/mopngodb");
 
@@ -32,6 +34,20 @@ export const creatorder = async (payload) => {
   if (results.insertedId) {
     const result = await cleradCart();
   }
+
+  // ai ta ke amr je code acha tar sata match kore daw to
+  // 📧 Send Invoice Email
+ const sendUserEmail =  await sendEmail({
+    to: user.email,
+    subject: "Your Order Invoice - Hero Kidz",
+    html: orderInvoiceTemplate({
+      orderId: results.insertedId.toString(),
+      items: getCart,
+      totalPrice: payload.total,
+    }),
+  });
+  console.log(sendUserEmail);
+  
 
   return { success: Boolean(results.insertedId) };
 };

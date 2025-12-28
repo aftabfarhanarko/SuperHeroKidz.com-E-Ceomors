@@ -34,7 +34,7 @@ const Banner = () => {
             height={500}
             priority
             alt="Buy every toy with up to 15% discount"
-            className="object-contain"
+            className="object-contain "
           />
         </div>
       </div>
