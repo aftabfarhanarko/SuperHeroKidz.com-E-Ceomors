@@ -4,10 +4,11 @@ import React, { useMemo, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const PagesPayment = ({ getCart }) => {
   const session = useSession();
-
+  const router = useRouter();
   const userData = session?.data?.user;
 
   // Calculate totals from getCart prop
@@ -43,10 +44,11 @@ const PagesPayment = ({ getCart }) => {
 
     try {
       const result = await creatorder(orderData);
-      console.log(result);
+    //   console.log(result);
       toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে! 🎉");
+      router.push("/")
     } catch (error) {
-      console.error("Order error:", error);
+    //   console.error("Order error:", error);
       toast.warning("অর্ডার সম্পন্ন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
     }
   };

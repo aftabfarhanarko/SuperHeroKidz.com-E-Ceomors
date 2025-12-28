@@ -2,7 +2,7 @@
 
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
-import { getUserCart } from "./addcart";
+import { cleradCart, getUserCart } from "./addcart";
 
 const { dbConnect, collection } = require("@/lib/mopngodb");
 
@@ -28,8 +28,10 @@ export const creatorder = async (payload) => {
   };
 
   const results = await orderCollectios.insertOne(insartOrder);
-//   console.log("Inseart Now", insartOrder);
+  //   console.log("Inseart Now", insartOrder);
+  if (results.insertedId) {
+    const result = await cleradCart();
+  }
 
-
-  return { success: true };
+  return { success: Boolean(results.insertedId) };
 };

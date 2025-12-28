@@ -43,7 +43,7 @@ export const handleCart = async ({ producat, inc = true }) => {
         ratings: producat.ratings,
         sold: producat.sold,
         quantity: 1,
-        creatAt: new Date().toISOString()
+        creatAt: new Date().toISOString(),
       };
       const result = await cartCollection.insertOne(newProducat);
       return { success: result.acknowledged };
@@ -136,4 +136,14 @@ export const decrimetitemDB = async (quantity, id) => {
   };
   const result = await cartCollection.updateOne(query, updeatData);
   return { success: Boolean(result.modifiedCount) };
+};
+
+export const cleradCart = async () => {
+  const { user } = (await getServerSession(authOptions)) || {};
+  if (!user) {
+    return { success: false };
+  }
+  const query = { email: user?.email };
+  const result = await cartCollection.deleteMany(query);
+  return result;
 };
