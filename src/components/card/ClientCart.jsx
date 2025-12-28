@@ -1,10 +1,11 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import CartItem from "./Cart.";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ClientCart = ({ itemsData }) => {
   const [items, setItemms] = useState(itemsData);
+  const router = useRouter();
 
   const totalItems = useMemo(
     () => items.reduce((acm, item) => acm + item.quantity, 0),
@@ -156,29 +157,16 @@ const ClientCart = ({ itemsData }) => {
                 </div>
               </div>
 
-              <Link
-                href={items.length === 0 ? "#" : "/checkOut"}
-                onClick={(e) => {
-                  if (items.length === 0) {
-                    e.preventDefault();
-                  }
-                }}
-                className={`relative w-full mt-8 font-black py-5  max-w-[500px] rounded-xl shadow-lg md:shadow-2xl transition-all duration-300 overflow-hidden group ${
-                  items.length === 0
-                    ? "bg-gray-400 cursor-not-allowed opacity-50"
-                    : "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white hover:shadow-emerald-500/50 hover:-translate-y-1 active:translate-y-0"
-                }`}
+              <button
+                // href={items.length === 0 ? "#" : "/checkOut"}
+                onClick={() => router.push("/checkOut")}
+                className={`relative w-full mt-8 font-black py-3.5  rounded-xl shadow-lg md:shadow-2xl transition-all duration-300 overflow-hidden group                 
+                bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white hover:shadow-emerald-500/50 hover:-translate-y-1 active:translate-y-0 `}
               >
-                <span className="relative w-full z-10 text-lg tracking-wide leading-relaxed">
+                <span className="relative max-w-[700px] z-10 text-lg tracking-wide leading-relaxed">
                   অর্ডার কনফার্ম করুন
                 </span>
-                {items.length > 0 && (
-                  <>
-                    <div className="absolute w-full inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    <div className="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity" />
-                  </>
-                )}
-              </Link>
+              </button>
 
               <div className="mt-6 text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full">

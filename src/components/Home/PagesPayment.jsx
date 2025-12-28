@@ -274,7 +274,7 @@ const PagesPayment = ({ getCart }) => {
                 <button
                   type="submit"
                   disabled={cartItems.length === 0}
-                  className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white font-black text-lg py-5 rounded-2xl hover:from-purple-700 hover:via-pink-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-2xl hover:shadow-purple-500/50 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0"
+                  className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 text-white font-black text-lg py-3 rounded-2xl hover:from-purple-700 hover:via-pink-700 hover:to-red-700 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 shadow-2xl hover:shadow-purple-500/50 relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0"
                 >
                   <span className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
                   <span className="relative flex items-center justify-center gap-2">
@@ -336,7 +336,7 @@ const PagesPayment = ({ getCart }) => {
                     <div className="flex justify-between text-sm items-center">
                       <span className="text-gray-600 font-semibold flex items-center gap-2">
                         <span className="text-lg">🛍️</span>
-                        সাবটোটাল ({totalItems} টি পণ্য)
+                        সাবটোটাল (<span className="text-purple-500">{totalItems}</span> টি পণ্য)
                       </span>
                       <span className="font-bold text-gray-800 text-lg">
                         ৳{subtotal.toLocaleString()}
