@@ -11,17 +11,17 @@ const AddButtons = ({ producat }) => {
   const router = useRouter();
   const path = usePathname();
   const [tsLoading, setTsLoading] = useState(false);
-
+  const id = producat._id;
   const session = useSession();
   const isLogin = session.status == "authenticated";
 
   const producatAddCard = async () => {
     setTsLoading(true);
     if (isLogin) {
-      const result = await handleCart({ producat, inc: true });
+      const result = await handleCart(id);
       if (result.success) {
         toast.success(`কার্টে যোগ করা পণ্যের নাম -  ${producat.bangla}`);
-        console.log(result);
+        // console.log(result);
       } else {
         toast.warning(`${result.message} || Somthings is Rongs  `);
       }

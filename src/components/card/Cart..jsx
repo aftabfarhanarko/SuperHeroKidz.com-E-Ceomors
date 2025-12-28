@@ -94,7 +94,7 @@ export default function CartItem({
   };
   const { _id, quantity } = item;
 
-  console.log(loadig);
+  // console.log(loadig);
 
   const incriget = async () => {
     setLoadig(true);

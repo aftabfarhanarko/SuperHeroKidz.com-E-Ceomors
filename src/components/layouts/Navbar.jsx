@@ -39,10 +39,10 @@ const Navbar = () => {
         <NavLink href={"/bloag"}>Bloag</NavLink>
       </li>
       <li>
-        <NavLink href={"/contact"}>Contact</NavLink>
+        <NavLink href={"/book"}>Book</NavLink>
       </li>
       <li>
-        <NavLink href={"/book"}>Book</NavLink>
+        <NavLink href={"/contact"}>Contact</NavLink>
       </li>
     </>
   );

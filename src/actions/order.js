@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth";
 import { cleradCart, getUserCart } from "./addcart";
 import { sendEmail } from "@/lib/sendEmail";
 import { orderInvoiceTemplate } from "@/lib/invoiceTemplate";
+import { ObjectId } from "mongodb";
 
 const { dbConnect, collection } = require("@/lib/mopngodb");
 
@@ -15,13 +16,15 @@ export const creatorder = async (payload) => {
   if (!user) {
     return { success: false };
   }
-  console.log(payload);
-  //   console.log(payload);
 
   const getCart = await getUserCart();
   if (getCart.length === 0) {
     return { success: false };
   }
+
+  // Kaj Baki SLode Updeat Korta hobe
+  // const producatsold = getCart.map((item ) => ({_id: new ObjectId(payload.p)}))
+
 
   const insartOrder = {
     item: getCart,
@@ -35,9 +38,8 @@ export const creatorder = async (payload) => {
     const result = await cleradCart();
   }
 
-  // ai ta ke amr je code acha tar sata match kore daw to
   // 📧 Send Invoice Email
- const sendUserEmail =  await sendEmail({
+  const sendUserEmail = await sendEmail({
     to: user.email,
     subject: "Your Order Invoice - Hero Kidz",
     html: orderInvoiceTemplate({
@@ -46,8 +48,7 @@ export const creatorder = async (payload) => {
       totalPrice: payload.total,
     }),
   });
-  console.log(sendUserEmail);
-  
+  // console.log(sendUserEmail);
 
   return { success: Boolean(results.insertedId) };
 };

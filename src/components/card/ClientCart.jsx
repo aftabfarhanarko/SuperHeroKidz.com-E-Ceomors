@@ -22,12 +22,12 @@ const ClientCart = ({ itemsData }) => {
   );
 
   const removedItems = (id) => {
-    console.log(id);
+    // console.log(id);
     setItemms((prev) => prev.filter((ite) => ite._id != id));
   };
 
   const updeatQuintitey = async (quantity, id) => {
-    console.log("Updeat Now", { quantity, id });
+    // console.log("Updeat Now", { quantity, id });
     setItemms((prve) =>
       prve.map((item) =>
         item._id == id ? { ...item, quantity: quantity } : item
@@ -36,7 +36,7 @@ const ClientCart = ({ itemsData }) => {
   };
 
   const decrimetQuitity = async (quantity, id) => {
-    console.log("Updeat Now", { quantity, id });
+    // console.log("Updeat Now", { quantity, id });
     setItemms((prve) =>
       prve.map((item) =>
         item._id == id ? { ...item, quantity: quantity } : item
@@ -44,7 +44,7 @@ const ClientCart = ({ itemsData }) => {
     );
   };
 
-  console.log("Length", items.length);
+  // console.log("Length", items.length);
 
   return (
     <div>

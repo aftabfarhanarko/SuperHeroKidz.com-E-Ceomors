@@ -10,7 +10,7 @@ export const metadata = {
 };
 const Producat = async () => {
   const product2 = (await getDataDB()) || [];
-  console.log(product2);
+  // console.log(product2);
   
   return (
     <div className="py-15 max-w-11/12 mx-auto">

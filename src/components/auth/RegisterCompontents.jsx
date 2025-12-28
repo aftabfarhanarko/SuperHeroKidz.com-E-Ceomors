@@ -32,7 +32,7 @@ const RegisterComponents = () => {
 
   // ✅ fallback home page
   const callbackUrl = params.get("callbackUrl") || "/";
-  console.log(callbackUrl);
+  // console.log(callbackUrl);
   
 
   const {
@@ -46,7 +46,7 @@ const RegisterComponents = () => {
     try {
       const imagesa = data.image;
       const newImages = await uploadToImgBB(imagesa);
-      console.log(newImages.url);
+      // console.log(newImages.url);
       
       const user = {
         name: data.name,
@@ -70,7 +70,7 @@ const RegisterComponents = () => {
         image: newImages.url,
         redirect: false, // 🔴 must
       });
-      console.log("Auto Signin", loginResult);
+      // console.log("Auto Signin", loginResult);
       
 
       if (loginResult?.ok) {

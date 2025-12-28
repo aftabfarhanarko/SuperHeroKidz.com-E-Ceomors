@@ -5,7 +5,7 @@ import React from "react";
 
 const pageChackOut = async () => {
   const getCart = await getUserCart();
-  console.log(getCart);
+  // console.log(getCart);
 
   // Check if cart is empty
   if (!getCart || getCart.length === 0) {

@@ -4,12 +4,12 @@ import React from "react";
 import Link from "next/link";
 
 const CartPagesadas = async () => {
-  const itesaddmsData = await getUserCart();
+  const itesaddmsData = (await getUserCart()) || [];
   const itemsData = itesaddmsData.map((items) => ({
     ...items,
     _id: items._id.toString(),
   }));
-  console.log("hjij", itemsData);
+  // console.log("hjij", itemsData);
 
   // যদি কার্ট খালি থাকে
   if (itemsData.length === 0) {

@@ -5,7 +5,7 @@ import Link from "next/link";
 const AuthButtons = () => {
   const session = useSession();
   // console.log("This is Navbar", session.data?.user?.image);
-  console.log(session);
+  // console.log(session);
 
   return (
     <div>

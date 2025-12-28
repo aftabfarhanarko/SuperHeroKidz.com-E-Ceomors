@@ -8,7 +8,7 @@ import React from "react";
 
 const SocialButtons = () => {
   const params = useSearchParams();
-  console.log("This params", params.get("callbackUrl") || "");
+  // console.log("This params", params.get("callbackUrl") || "");
 
   const handelGoogleLogin = async () => {
     const result = await signIn("google", {

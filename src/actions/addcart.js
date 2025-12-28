@@ -8,49 +8,30 @@ import { revalidatePath } from "next/cache";
 import { cache } from "react";
 
 const cartCollection = dbConnect(collection.CART);
-export const handleCart = async ({ producat, inc = true }) => {
+const producatCollection = dbConnect(collection.PRODUCTS);
+
+export const handleCart = async (id) => {
   const { user } = (await getServerSession(authOptions)) || {};
   if (!user) {
     return { success: false };
   }
+  const query = { _id: new ObjectId(id) };
+  const producat = await producatCollection.findOne(query);
 
-  try {
-    //   Check producat all readey saved
-    const query = { email: user?.email, producatId: producat._id };
-    const isSaved = await cartCollection.findOne(query);
-
-    if (isSaved) {
-      // Updeat Now
-      const updeatData = {
-        $inc: {
-          quantity: inc ? 1 : -1,
-        },
-      };
-      const updeatResult = await cartCollection.updateOne(query, updeatData);
-      return { success: Boolean(updeatResult.modifiedCount) };
-      // return {
-      //   success: false,
-      //   message: "আপনি ইতোমধ্যেই পণ্যটি কার্টে যোগ করেছেন",
-      // };
-    } else {
-      // Saved Data Base
-      const newProducat = {
-        producatId: producat._id,
-        email: user?.email,
-        name: producat.bangla,
-        image: producat.image,
-        price: producat.price - (producat.price * producat.discount) / 100,
-        ratings: producat.ratings,
-        sold: producat.sold,
-        quantity: 1,
-        creatAt: new Date().toISOString(),
-      };
-      const result = await cartCollection.insertOne(newProducat);
-      return { success: result.acknowledged };
-    }
-  } catch (error) {
-    console.log(error);
-  }
+  // Saved Data Base
+  const newProducat = {
+    producatId: producat._id,
+    email: user?.email,
+    name: producat.bangla,
+    image: producat.image,
+    price: producat.price - (producat.price * producat.discount) / 100,
+    ratings: producat.ratings,
+    sold: producat.sold,
+    quantity: 1,
+    creatAt: new Date().toISOString(),
+  };
+  const result = await cartCollection.insertOne(newProducat);
+  return { success: result.acknowledged };
 };
 
 export const getUserCart = cache(async () => {
@@ -63,7 +44,7 @@ export const getUserCart = cache(async () => {
     const query = { email: user?.email };
     const result = await cartCollection.find(query).toArray();
     // const count = await cartCollection.countDocuments(query);
-    return result;
+    return result || [];
   } catch (error) {
     console.log(error);
   }
@@ -72,13 +53,13 @@ export const getUserCart = cache(async () => {
 export const deleteCart = async (id) => {
   try {
     const { user } = (await getServerSession(authOptions)) || {};
-    // if (!user) {
-    //   return { success: false };
-    // }
+    if (!user) {
+      return { success: false };
+    }
     if (id.length !== 24) {
       return { success: false };
     }
-    const query = { _id: new ObjectId(id) };
+    const query = { _id: new ObjectId(id), email: user?.email };
     const result = await cartCollection.deleteOne(query);
     if (result.deletedCount) {
       revalidatePath("/cart");
@@ -90,7 +71,7 @@ export const deleteCart = async (id) => {
 };
 
 export const incritemintDB = async (quantity, id) => {
-  console.log(id, quantity);
+  // console.log(id, quantity);
 
   const { user } = (await getServerSession(authOptions)) || {};
   if (!user) {
@@ -103,7 +84,7 @@ export const incritemintDB = async (quantity, id) => {
     };
   }
 
-  const query = { _id: new ObjectId(id) };
+  const query = { _id: new ObjectId(id), email: user?.email };
   const updeatData = {
     $inc: {
       quantity: 1,
@@ -114,7 +95,7 @@ export const incritemintDB = async (quantity, id) => {
 };
 
 export const decrimetitemDB = async (quantity, id) => {
-  console.log(id, quantity);
+  // console.log(id, quantity);
 
   const { user } = (await getServerSession(authOptions)) || {};
   if (!user) {
@@ -128,7 +109,7 @@ export const decrimetitemDB = async (quantity, id) => {
     };
   }
 
-  const query = { _id: new ObjectId(id) };
+  const query = { _id: new ObjectId(id), email: user?.email };
   const updeatData = {
     $inc: {
       quantity: -1,

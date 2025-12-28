@@ -12,6 +12,6 @@ export const singelProducat = async (id) => {
     return {};
   }
   const query = { _id: new ObjectId(id) };
-  const producat = await dbConnect(collection.PRODUCTS).findOne();
+  const producat = await dbConnect(collection.PRODUCTS).findOne(query);
   return { ...producat, _id: producat._id.toString() } || {};
 };

@@ -40,7 +40,7 @@ const PagesPayment = ({ getCart }) => {
       deliveryCharge,
       total,
     };
-    console.log("Order submitted:", orderData);
+    // console.log("Order submitted:", orderData);
 
     try {
       const result = await creatorder(orderData);

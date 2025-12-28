@@ -6,7 +6,7 @@ import React from "react";
 
 const Page = async ({ params }) => {
   const { id } = await params;
-  console.log(id);
+  // console.log(id);
   const product = await singelProducat(id);
   //   console.log(product);
 

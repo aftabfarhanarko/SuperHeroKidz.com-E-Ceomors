@@ -36,12 +36,12 @@ const LoginCompontents = () => {
       redirect: false, // এটা true রাখলে client-side handling কঠিন হয়
       callbackUrl: callback,
     });
-    console.log("Login User", result);
+    // console.log("Login User", result);
     
 
     if (result?.error) {
       toast.warning("ইমেইল বা পাসওয়ার্ড ভুল হয়েছে!");
-      console.log("Login error:", result.error);
+      // console.log("Login error:", result.error);
     } else if (result?.ok) {
       toast.success("সফলভাবে লগইন হয়েছে! 🚀");
       router.push(result.url || "/");
