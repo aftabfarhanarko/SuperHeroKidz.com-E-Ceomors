@@ -12,6 +12,7 @@ export default function CartItem({
   removedItems,
   updeatQuintitey,
   decrimetQuitity,
+  totalPrice
 }) {
   const itemsDelete = async (id) => {
     Swal.fire({
@@ -87,6 +88,9 @@ export default function CartItem({
   };
   const [loadig, setLoadig] = useState(false);
   const { _id, quantity } = item;
+
+  console.log(totalPrice);
+  
 
   const incriget = async () => {
     setLoadig(true);
