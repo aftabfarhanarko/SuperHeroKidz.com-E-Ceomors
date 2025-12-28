@@ -1,6 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import CartItem from "./Cart.";
+import Link from "next/link";
 
 const ClientCart = ({ itemsData }) => {
   const [items, setItemms] = useState(itemsData);
@@ -42,11 +43,7 @@ const ClientCart = ({ itemsData }) => {
     );
   };
 
-  const handleConfirmOrder = () => {
-    console.log("Order confirmed:", items);
-    // Add your order confirmation logic here
-    alert("অর্ডার কনফার্ম করা হয়েছে!");
-  };
+  console.log("Length", items.length);
 
   return (
     <div>
@@ -159,16 +156,29 @@ const ClientCart = ({ itemsData }) => {
                 </div>
               </div>
 
-              <button
-                onClick={handleConfirmOrder}
-                className="relative w-full mt-8 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white font-black py-4 rounded-xl shadow-lg  md:shadow-2xl transition-all duration-300 hover:shadow-emerald-500/50 hover:-translate-y-1 active:translate-y-0 overflow-hidden group"
+              <Link
+                href={items.length === 0 ? "#" : "/checkOut"}
+                onClick={(e) => {
+                  if (items.length === 0) {
+                    e.preventDefault();
+                  }
+                }}
+                className={`relative w-full mt-8 font-black py-5  max-w-[500px] rounded-xl shadow-lg md:shadow-2xl transition-all duration-300 overflow-hidden group ${
+                  items.length === 0
+                    ? "bg-gray-400 cursor-not-allowed opacity-50"
+                    : "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:via-teal-600 hover:to-cyan-600 text-white hover:shadow-emerald-500/50 hover:-translate-y-1 active:translate-y-0"
+                }`}
               >
-                <span className="relative z-10 text-lg tracking-wide">
+                <span className="relative w-full z-10 text-lg tracking-wide leading-relaxed">
                   অর্ডার কনফার্ম করুন
                 </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                <div className="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity" />
-              </button>
+                {items.length > 0 && (
+                  <>
+                    <div className="absolute w-full inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-black/10 opacity-0 group-active:opacity-100 transition-opacity" />
+                  </>
+                )}
+              </Link>
 
               <div className="mt-6 text-center">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-100 to-purple-100 rounded-full">

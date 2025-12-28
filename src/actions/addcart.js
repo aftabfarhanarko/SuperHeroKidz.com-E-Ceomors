@@ -43,6 +43,7 @@ export const handleCart = async ({ producat, inc = true }) => {
         ratings: producat.ratings,
         sold: producat.sold,
         quantity: 1,
+        creatAt: new Date().toISOString()
       };
       const result = await cartCollection.insertOne(newProducat);
       return { success: result.acknowledged };

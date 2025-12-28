@@ -12,9 +12,12 @@ export default function CartItem({
   removedItems,
   updeatQuintitey,
   decrimetQuitity,
-  totalPrice
+  totalPrice,
 }) {
+  const [loadig, setLoadig] = useState(false);
+
   const itemsDelete = async (id) => {
+    setLoadig(true);
     Swal.fire({
       title: "🗑️ Delete Item?",
       html: `
@@ -53,7 +56,9 @@ export default function CartItem({
     }).then(async (result) => {
       if (result.isConfirmed) {
         const deleteResult = await deleteCart(id);
+
         removedItems(id);
+
         Swal.fire({
           title: "✅ Successfully Deleted!",
           html: `
@@ -84,13 +89,12 @@ export default function CartItem({
           timerProgressBar: true,
         });
       }
+      setLoadig(false);
     });
   };
-  const [loadig, setLoadig] = useState(false);
   const { _id, quantity } = item;
 
-  console.log(totalPrice);
-  
+  console.log(loadig);
 
   const incriget = async () => {
     setLoadig(true);
