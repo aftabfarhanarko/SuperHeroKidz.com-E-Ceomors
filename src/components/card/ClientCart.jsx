@@ -16,9 +16,22 @@ const ClientCart = ({ itemsData }) => {
   };
 
   const updeatQuintitey = async (quantity, id) => {
-    console.log("Updeat Now", {quantity, id});
-    
+    console.log("Updeat Now", { quantity, id });
+    setItemms((prve) =>
+      prve.map((item) =>
+        item._id == id ? { ...item, quantity: quantity } : item
+      )
+    );
   };
+  const decrimetQuitity = async (quantity, id) => {
+    console.log("Updeat Now", { quantity, id });
+    setItemms((prve) =>
+      prve.map((item) =>
+        item._id == id ? { ...item, quantity: quantity } : item
+      )
+    );
+  };
+
   return (
     <div>
       <div className="flex mx-auto -mt-10 max-w-[150px] items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white text-sm font-semibold shadow-lg">
@@ -35,6 +48,7 @@ const ClientCart = ({ itemsData }) => {
             item={item}
             removedItems={removedItems}
             updeatQuintitey={updeatQuintitey}
+            decrimetQuitity={decrimetQuitity}
           />
         ))}
       </div>

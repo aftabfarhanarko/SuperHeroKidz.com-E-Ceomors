@@ -2,11 +2,17 @@
 
 import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { deleteCart, incritemintDB } from "@/actions/addcart";
+import { decrimetitemDB, deleteCart, incritemintDB } from "@/actions/addcart";
 import Swal from "sweetalert2";
 import { toast } from "sonner";
+import { useState } from "react";
 
-export default function CartItem({ item, removedItems, updeatQuintitey }) {
+export default function CartItem({
+  item,
+  removedItems,
+  updeatQuintitey,
+  decrimetQuitity,
+}) {
   const itemsDelete = async (id) => {
     Swal.fire({
       title: "🗑️ Delete Item?",
@@ -79,15 +85,29 @@ export default function CartItem({ item, removedItems, updeatQuintitey }) {
       }
     });
   };
+  const [loadig, setLoadig] = useState(false);
   const { _id, quantity } = item;
 
   const incriget = async () => {
+    setLoadig(true);
     const result = await incritemintDB(quantity, _id);
-    console.log("Updeat Now", quantity, _id, result);
     if (result.success) {
       updeatQuintitey(quantity + 1, _id);
-      toast.success("Updeat Your quantity");
+      toast.success(
+        "আপনার কার্টে থাকা পণ্যের পরিমাণ সফলভাবে বৃদ্ধি করা হয়েছে"
+      );
     }
+    setLoadig(false);
+  };
+
+  const decripets = async () => {
+    setLoadig(true);
+    const result = await decrimetitemDB(quantity, _id);
+    if (result.success) {
+      decrimetQuitity(quantity - 1, _id);
+      toast.success("কার্টে থাকা পণ্যের পরিমাণ সফলভাবে কমানো হয়েছে");
+    }
+    setLoadig(false);
   };
 
   return (
@@ -125,7 +145,16 @@ export default function CartItem({ item, removedItems, updeatQuintitey }) {
         <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
           {/* Quantity Control */}
           <div className="flex items-center gap-2 rounded-xl border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-2 shadow-md hover:shadow-lg transition-all">
-            <button className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-red-500 hover:to-pink-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm">
+            <button
+              onClick={decripets}
+              disabled={quantity === 1 || loadig}
+              className={`rounded-lg p-1.5 transition-all shadow-sm
+    ${
+      quantity === 1
+        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+        : "bg-white text-gray-700 hover:bg-gradient-to-br hover:from-red-500 hover:to-pink-500 hover:text-white hover:scale-110 active:scale-95"
+    }`}
+            >
               <Minus size={16} strokeWidth={2.5} />
             </button>
 
@@ -135,7 +164,13 @@ export default function CartItem({ item, removedItems, updeatQuintitey }) {
 
             <button
               onClick={incriget}
-              className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm"
+              disabled={quantity === 10 || loadig}
+              className={`rounded-lg p-1.5 transition-all shadow-sm
+    ${
+      quantity === 10
+        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+        : "bg-white text-gray-700 hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:text-white hover:scale-110 active:scale-95"
+    }`}
             >
               <Plus size={16} strokeWidth={2.5} />
             </button>

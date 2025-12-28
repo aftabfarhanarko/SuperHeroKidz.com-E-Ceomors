@@ -95,15 +95,42 @@ export const incritemintDB = async (quantity, id) => {
   if (!user) {
     return { success: false };
   }
-
-  if (quantity > 10) {
-    return { success: false, message: "You cant buy 10 products at a Time" };
+  if (quantity >= 10) {
+    return {
+      success: false,
+      message: "আপনি একসাথে ১০টির বেশি পণ্য কার্টে যোগ করতে পারবেন না",
+    };
   }
 
   const query = { _id: new ObjectId(id) };
   const updeatData = {
     $inc: {
       quantity: 1,
+    },
+  };
+  const result = await cartCollection.updateOne(query, updeatData);
+  return { success: Boolean(result.modifiedCount) };
+};
+
+export const decrimetitemDB = async (quantity, id) => {
+  console.log(id, quantity);
+
+  const { user } = (await getServerSession(authOptions)) || {};
+  if (!user) {
+    return { success: false };
+  }
+
+  if (quantity <= 1) {
+    return {
+      success: false,
+      message: "আপনি ১টির নিচে পণ্যের সংখ্যা কমাতে পারবেন না।",
+    };
+  }
+
+  const query = { _id: new ObjectId(id) };
+  const updeatData = {
+    $inc: {
+      quantity: -1,
     },
   };
   const result = await cartCollection.updateOne(query, updeatData);
