@@ -88,9 +88,9 @@ export const deleteCart = async (id) => {
   }
 };
 
-export const incritemintDB = async (id, quantity) => {
-  // console.log(id, quantity);
-  
+export const incritemintDB = async (quantity, id) => {
+  console.log(id, quantity);
+
   const { user } = (await getServerSession(authOptions)) || {};
   if (!user) {
     return { success: false };

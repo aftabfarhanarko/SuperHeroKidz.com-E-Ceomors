@@ -15,8 +15,8 @@ const ClientCart = ({ itemsData }) => {
     setItemms((prev) => prev.filter((ite) => ite._id != id));
   };
 
-  const updeatQuintitey = async () => {
-    console.log("Updeat Now");
+  const updeatQuintitey = async (quantity, id) => {
+    console.log("Updeat Now", {quantity, id});
     
   };
   return (

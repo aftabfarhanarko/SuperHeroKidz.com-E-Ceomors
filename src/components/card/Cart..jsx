@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { deleteCart, incritemintDB } from "@/actions/addcart";
 import Swal from "sweetalert2";
+import { toast } from "sonner";
 
 export default function CartItem({ item, removedItems, updeatQuintitey }) {
   const itemsDelete = async (id) => {
@@ -78,10 +79,15 @@ export default function CartItem({ item, removedItems, updeatQuintitey }) {
       }
     });
   };
+  const { _id, quantity } = item;
 
-  const incriget = async (quantity, id) => {
-    const result = await incritemintDB(quantity, id);
-    console.log("Updeat Now", result);
+  const incriget = async () => {
+    const result = await incritemintDB(quantity, _id);
+    console.log("Updeat Now", quantity, _id, result);
+    if (result.success) {
+      updeatQuintitey(quantity + 1, _id);
+      toast.success("Updeat Your quantity");
+    }
   };
 
   return (
@@ -128,7 +134,7 @@ export default function CartItem({ item, removedItems, updeatQuintitey }) {
             </span>
 
             <button
-              onClick={() => incriget(item.quantity, item._id)}
+              onClick={incriget}
               className="rounded-lg p-1.5 bg-white text-gray-700 transition-all hover:bg-gradient-to-br hover:from-green-500 hover:to-emerald-500 hover:text-white hover:scale-110 active:scale-95 shadow-sm"
             >
               <Plus size={16} strokeWidth={2.5} />
