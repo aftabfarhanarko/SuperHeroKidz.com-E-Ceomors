@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 const privetRoute = ["/cart", "/checkOut", "/contact"];
 
 export async function proxy(req) {
-  const token = await getToken({ req });
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const reqPath = req.nextUrl.pathname;
   const isAuthorized = Boolean(token);
   const isPrivetRoute = privetRoute.some((route) =>

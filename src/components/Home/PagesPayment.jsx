@@ -44,19 +44,19 @@ const PagesPayment = ({ getCart }) => {
 
     try {
       const result = await creatorder(orderData);
-    //   console.log(result);
+      //   console.log(result);
       toast.success("অর্ডার সফলভাবে সম্পন্ন হয়েছে! 🎉");
-      router.push("/")
+      router.push("/");
     } catch (error) {
-    //   console.error("Order error:", error);
+      //   console.error("Order error:", error);
       toast.warning("অর্ডার সম্পন্ন করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।");
     }
   };
   if (session.status === "loading") {
     return (
-      <div class="flex items-center justify-center min-h-screen">
+      <div class="flex items-center justify-center min-h-screen bg-white">
         <div class="text-center">
-          <div class="spinner w-10 h-10 border-4 border-gray-300 border-t-blue-600 rounded-full mx-auto mb-3"></div>
+          <div class="w-12 h-12 border-4 border-gray-300 border-t-blue-600 rounded-full animate-spin mx-auto mb-3"></div>
           <p class="text-gray-700 text-sm">Loading...</p>
         </div>
       </div>
@@ -336,7 +336,9 @@ const PagesPayment = ({ getCart }) => {
                     <div className="flex justify-between text-sm items-center">
                       <span className="text-gray-600 font-semibold flex items-center gap-2">
                         <span className="text-lg">🛍️</span>
-                        সাবটোটাল (<span className="text-purple-500">{totalItems}</span> টি পণ্য)
+                        সাবটোটাল (
+                        <span className="text-purple-500">{totalItems}</span> টি
+                        পণ্য)
                       </span>
                       <span className="font-bold text-gray-800 text-lg">
                         ৳{subtotal.toLocaleString()}
