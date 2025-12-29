@@ -27,120 +27,103 @@ const Cards = ({ one }) => {
     <>
       <div
         key={_id}
-        // data-aos="zoom-in"
-        className="group relative max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 ease-out border border-gray-100"
+        className="group relative max-w-sm rounded-3xl bg-white overflow-hidden
+  shadow-lg hover:shadow-2xl transition-all duration-700 border border-gray-100"
       >
-        {/* Product Image */}
-        <div className="relative w-full h-72 overflow-hidden">
+        {/* Image Section */}
+        <div className="relative aspect-square bg-gray-50 overflow-hidden">
           <Image
             src={image}
             alt={bangla}
-            width={400}
-            height={400}
-            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700 ease-out"
-            loading="lazy"
+            width={200}
+            height={200}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
           />
 
-          {/* Discount Badge */}
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+          {/* Discount badge */}
           {percentage > 0 && (
-            <div className="absolute top-4 left-4 bg-gradient-to-r from-rose-500 to-pink-600 text-white px-4 py-1.5 rounded-full text-sm font-bold shadow-xl">
+            <span className="absolute top-4 left-4 bg-rose-600 text-white text-sm font-bold px-4 py-1.5 rounded-full shadow-lg">
               -{percentage}%
-            </div>
+            </span>
           )}
 
-          {/* Quick View Icon on Hover Only */}
-          <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button className="bg-white/90 backdrop-blur-sm text-gray-800 p-3 rounded-full shadow-lg hover:bg-rose-500 hover:text-white transition-all duration-300">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  // strokeLinecap="round"
-                  strokeWidth={2}
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  // strokeLinecap="round"
-                  strokeWidth={2}
-                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                />
-              </svg>
-            </button>
-          </div>
+          {/* Quick view */}
+          <button
+            className="absolute top-4 right-4 opacity-0 group-hover:opacity-100
+      translate-y-2 group-hover:translate-y-0 transition-all duration-500
+      bg-white p-3 rounded-full shadow-xl hover:bg-rose-600 hover:text-white"
+          >
+            <Eye className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Content */}
-        <div className="p-3">
+        <div className="p-6">
           {/* Title */}
           <h2
-            className={` ${fontBangla.className} text-lg font-semibold text-gray-800 mb-3 line-clamp-2 leading-relaxed`}
+            className={`${fontBangla.className} text-lg font-bold text-gray-900 line-clamp-2 mb-3`}
             title={title}
           >
             {bangla}
           </h2>
 
           {/* Price */}
-          <div className="mb-5">
+          <div className="mb-4">
             {percentage > 0 ? (
-              <div className="flex items-center gap-3">
-                <span className="text-xl font-bold text-rose-600">
+              <div className="flex items-end gap-3">
+                <span className="text-2xl font-extrabold text-rose-600">
                   ৳{discountedPrice.toFixed(0)}
                 </span>
-                <span className="text-lg text-gray-500 line-through">
+                <span className="text-sm text-gray-400 line-through">
                   ৳{price}
                 </span>
               </div>
             ) : (
-              <div className="flex gap-3 items-center">
-                <span className="text-xl font-bold text-rose-600">
-                  ৳{price}
-                </span>
-                <span className="text-lg text-gray-500 line-through">
-                  ৳{price}
-                </span>
-              </div>
+              <span className="text-2xl font-extrabold text-rose-600">
+                ৳{price}
+              </span>
             )}
           </div>
 
-          {/* Ratings & Sold */}
+          {/* Rating & Sold */}
           <div className="flex items-center justify-between text-sm text-gray-600 mb-6">
             <div className="flex items-center gap-2">
-              <span className="text-yellow-500">⭐</span>
-              <span className="font-medium">{ratings.toFixed(1)}</span>
-              <span className={`${fontBangla.className} text-gray-500`}>
+              <span className="text-yellow-400">★</span>
+              <span className="font-semibold">{ratings.toFixed(1)}</span>
+              <span className={`${fontBangla.className}`}>
                 ({reviews} রিভিউ)
               </span>
             </div>
-            <div className={` ${fontBangla.className} font-medium `}>
+            <span className={`${fontBangla.className} font-medium`}>
               {sold} বিক্রীত
-            </div>
+            </span>
           </div>
 
-          {/* Action Buttons - Always Visible, Premium Style */}
-          <div className="flex gap-3">
-            {/* Add to Cart */}
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
             <AddButtons producat={{ ...one, _id: _id.toString() }} />
 
-            {/* View Details */}
-            <Link href={`/producat/${_id}`} className="flex-1">
+            <Link href={`/producat/${_id}`}>
               <button
-                className="w-full border border-primary text-primary
-      flex items-center justify-center gap-2
-      py-2.5 rounded-xl font-semibold shadow-sm
-      hover:bg-primary hover:text-white hover:shadow-md
-      transition-all duration-300 transform hover:-translate-y-0.5"
+                className="w-full flex items-center justify-center gap-2
+          bg-gradient-to-r from-rose-600 to-pink-600 text-white
+          py-3 rounded-xl font-bold shadow-md
+          hover:from-rose-700 hover:to-pink-700 hover:shadow-xl
+          transition-all duration-300"
               >
                 <Eye className="w-5 h-5" />
                 View Details
               </button>
             </Link>
           </div>
+        </div>
+
+        {/* Shine Effect */}
+        <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
         </div>
       </div>
     </>

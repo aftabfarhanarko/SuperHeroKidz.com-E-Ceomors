@@ -1,22 +1,24 @@
 "use client";
 import Link from "next/link";
+// components/NavLink.js (অথবা যেখানে আছে)
 import { usePathname } from "next/navigation";
 import React from "react";
 
 const NavLink = ({ href, children }) => {
-  const path = usePathname();
-  const isActive = path.startsWith(href);
+  const pathname = usePathname();
+
+  // হোমের জন্য স্পেশাল চেক: শুধু যখন exact "/" তখনই active
+  // অন্য সব লিঙ্কের জন্য startsWith কাজ করবে (যেমন /bloag/post ইত্যাদি)
+  const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <Link
-      className={`px-4 py-2 font-semibold rounded-lg transition-all duration-200 ${
-        isActive
-          ? // Active state: সবসময় এই স্টাইল, hover করলেও একই থাকবে
-            "text-primary "
-          : // Non-active: শুধু hover করলে active-এর মতো স্টাইল
-            "text-gray-700 hover:text-primary hover:bg-orange-50"
-      }`}
       href={href}
+      className={`px-5 py-2 font-semibold rounded-lg transition-all duration-300 ${
+        isActive
+          ? " text-primary  md:bg-gradient-to-r md:from-orange-400 md:to-pink-500 md:text-white "
+          : "text-gray-600 hover:text-orange-500 hover:bg-orange-50"
+      }`}
     >
       {children}
     </Link>

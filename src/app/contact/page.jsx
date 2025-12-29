@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   Mail,
@@ -15,11 +16,6 @@ import {
 import { fontBangla } from "../layout";
 
 const ContactPage = () => {
-//   const handleSubmit = () => {
-//     // Form submission logic here
-//     alert("আপনার বার্তা সফলভাবে পাঠানো হয়েছে!");
-//   };
-
   const contactInfo = [
     {
       icon: Phone,
@@ -77,6 +73,12 @@ const ContactPage = () => {
     },
   ];
 
+  // const handleSubmitForm = (e) => {
+  //   e.preventDefault(); // page reload বন্ধ করবে
+  //   alert("আপনার বার্তা সফলভাবে পাঠানো হয়েছে");
+  //   e.target.reset(); // ফর্ম রিসেট করবে
+  // };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
       {/* Hero Section */}
@@ -111,7 +113,9 @@ const ContactPage = () => {
                   <Icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-3">
-                  <span className={`${fontBangla.className} `}>{info.title}</span>
+                  <span className={`${fontBangla.className} `}>
+                    {info.title}
+                  </span>
                 </h3>
                 {info.details.map((detail, idx) => (
                   <p key={idx} className="text-gray-600 mb-1">
@@ -123,7 +127,9 @@ const ContactPage = () => {
                     href={info.link}
                     className="inline-block mt-3 text-orange-400 hover:text-orange-500 font-semibold"
                   >
-                    <span className={`${fontBangla.className} `}>বিস্তারিত →</span>
+                    <span className={`${fontBangla.className} `}>
+                      বিস্তারিত →
+                    </span>
                   </a>
                 )}
               </div>
@@ -141,10 +147,12 @@ const ContactPage = () => {
                 আমাদের বার্তা পাঠান
               </span>
             </h2>
-            <div className="space-y-6">
+            <form  className="space-y-6">
               <div>
                 <label className="block text-gray-700 font-semibold mb-2">
-                  <span className={`${fontBangla.className} `}>আপনার নাম *</span>
+                  <span className={`${fontBangla.className} `}>
+                    আপনার নাম *
+                  </span>
                 </label>
                 <input
                   type="text"
@@ -194,7 +202,9 @@ const ContactPage = () => {
                   <option className={`${fontBangla.className} `}>
                     রিটার্ন/রিফান্ড
                   </option>
-                  <option className={`${fontBangla.className} `}>অন্যান্য</option>
+                  <option className={`${fontBangla.className} `}>
+                    অন্যান্য
+                  </option>
                 </select>
               </div>
 
@@ -212,13 +222,13 @@ const ContactPage = () => {
               </div>
 
               <button
-                // onClick={handleSubmit}
+                type="submit"
                 className="w-full bg-gradient-to-r from-orange-400 to-amber-400 text-white py-4 rounded-xl font-bold text-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
               >
                 <Send className="w-6 h-6" />
                 <span className={`${fontBangla.className} `}>বার্তা পাঠান</span>
               </button>
-            </div>
+            </form>
           </div>
 
           {/* Map & Info */}
@@ -239,7 +249,9 @@ const ContactPage = () => {
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-800 mb-2 flex items-center gap-2">
                   <MapPin className="w-6 h-6 text-orange-400" />
-                  <span className={`${fontBangla.className} `}>আমাদের লোকেশন</span>
+                  <span className={`${fontBangla.className} `}>
+                    আমাদের লোকেশন
+                  </span>
                 </h3>
                 <p className="text-gray-600">
                   <span className={`${fontBangla.className} `}>
@@ -276,36 +288,6 @@ const ContactPage = () => {
                 })}
               </div>
             </div>
-
-            {/* Quick Support */}
-            <div className="bg-gradient-to-r from-orange-400 to-amber-400 rounded-3xl shadow-2xl p-8 text-white">
-              <div className="flex items-start gap-4">
-                <div className="bg-white/20 p-4 rounded-full">
-                  <CheckCircle className="w-8 h-8" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2">
-                    <span className={`${fontBangla.className} `}>
-                      তাৎক্ষণিক সহায়তা
-                    </span>
-                  </h3>
-                  <p className="text-orange-100 mb-4">
-                    <span className={`${fontBangla.className} `}>
-                      জরুরি সহায়তার জন্য আমাদের হটলাইনে কল করুন
-                    </span>
-                  </p>
-                  <a
-                    href="tel:+8801234567890"
-                    className="inline-flex items-center gap-2 bg-white text-orange-400 px-6 py-3 rounded-full font-bold hover:shadow-lg transform hover:scale-105 transition-all"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span className={`${fontBangla.className} `}>
-                      এখনই কল করুন
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -328,7 +310,9 @@ const ContactPage = () => {
                   </span>
                 </h4>
                 <p className="text-gray-600">
-                  <span className={`${fontBangla.className} `}>{faq.answer}</span>
+                  <span className={`${fontBangla.className} `}>
+                    {faq.answer}
+                  </span>
                 </p>
               </div>
             ))}

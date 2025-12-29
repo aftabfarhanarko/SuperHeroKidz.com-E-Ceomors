@@ -30,19 +30,19 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink href={"/"}>Home</NavLink>
+        <NavLink href="/">Home</NavLink>
       </li>
       <li>
-        <NavLink href={"/producat"}>Producat</NavLink>
+        <NavLink href="/producat">Producat</NavLink>
       </li>
       <li>
-        <NavLink href={"/bloag"}>Bloag</NavLink>
+        <NavLink href="/bloag">Bloag</NavLink>
       </li>
       <li>
-        <NavLink href={"/book"}>Book</NavLink>
+        <NavLink href="/book">Book</NavLink>
       </li>
       <li>
-        <NavLink href={"/contact"}>Contact</NavLink>
+        <NavLink href="/contact">Contact</NavLink>
       </li>
     </>
   );

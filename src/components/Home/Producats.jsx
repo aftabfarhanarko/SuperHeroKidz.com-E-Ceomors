@@ -1,11 +1,11 @@
 import React from "react";
 // import product from "@/data/toys.json";
 import Cards from "../card/Cards";
-import { getDataDB } from "@/actions/server/getData";
+import { limetCard } from "@/actions/server/getData";
 import { fontBangla } from "@/app/layout";
 
 const Producats = async () => {
-  const product2 = (await getDataDB()) || [];
+  const product2 = (await limetCard()) || [];
   // console.log(product2);
 
   return (

@@ -15,3 +15,8 @@ export const singelProducat = async (id) => {
   const producat = await dbConnect(collection.PRODUCTS).findOne(query);
   return { ...producat, _id: producat._id.toString() } || {};
 };
+
+export const limetCard = async () => {
+  const producat = await dbConnect(collection.PRODUCTS).find().limit(8).toArray();
+  return producat;
+};
